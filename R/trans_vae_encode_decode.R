@@ -1,5 +1,5 @@
 #'@title Variational Autoencoder - Encode
-#'@description Creates an deep learning autoencoder to encode a sequence of observations.
+#'@description Creates an deep learning variational autoencoder to encode a sequence of observations.
 #' It wraps the pytorch library.
 #'@param input_size input size
 #'@param encoding_size encoding size
@@ -43,6 +43,6 @@ transform.vae_encode_decode <- function(obj, data, ...) {
 
   result <- NULL
   if (!is.null(obj$model))
-    result <- vae_encode_decode(obj$model, data)
+    result <- var_autoencoder_encode_decode(obj$model, data)
   return(result)
 }

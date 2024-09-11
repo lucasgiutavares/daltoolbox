@@ -127,7 +127,7 @@ def vae_encode_data(vae, data_loader):
 
   return encoded_data
 
-def vae_encode(vae, data, batch_size = 32):
+def var_autoencoder_encode(vae, data, batch_size = 32):
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
@@ -139,7 +139,7 @@ def vae_encode(vae, data, batch_size = 32):
   return(encoded_data)
 
 
-def vae_encode_decode_data(vae, data_loader):
+def var_autoencoder_encode_decode_data(vae, data_loader):
   # Encode the synthetic time series data using the trained vae
   encoded_decoded_data = []
   for data in data_loader:
@@ -156,14 +156,14 @@ def vae_encode_decode_data(vae, data_loader):
   return encoded_decoded_data
 
 
-def vae_encode_decode(vae, data, batch_size = 32):
+def var_autoencoder_encode_decode(vae, data, batch_size = 32):
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
   ds = VAE_TS(array)
   train_loader = DataLoader(ds, batch_size=batch_size)
   
-  encoded_decoded_data = vae_encode_decode_data(vae, train_loader)
+  encoded_decoded_data = var_autoencoder_encode_decode_data(vae, train_loader)
   
   return(encoded_decoded_data)
   

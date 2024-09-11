@@ -5,7 +5,7 @@ source("https://raw.githubusercontent.com/cefet-rj-dal/daltoolbox/main/jupyter.R
 
 #loading DAL
 library(devtools)
-load_all("/home/lucas/daltoolbox/R/")
+load_all("/home/lucas/daltoolbox/")
 
 # Dataset
 data(sin_data)
@@ -30,11 +30,11 @@ test <- as.data.frame(samp$test)
 # Create Autoencoder
 auto <- vae_encode_decode(5, 3)
 
-auto <- fit.vae_encode_decode(auto, train)
+auto <- fit(auto, train)
 
 # Testing Autoencoder
 print(head(test))
-result <- transform.vae_encode_decode(auto, test)
+result <- transform(auto, test)
 print(head(result))
 
 print(result-test)
