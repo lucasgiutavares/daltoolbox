@@ -26,9 +26,10 @@ ts_head(ts)
 samp <- ts_sample(ts, test_size = 10)
 train <- as.data.frame(samp$train)
 test <- as.data.frame(samp$test)
+features <- names(train)
 
 # Create Autoencoder
-auto <- vae_encode_decode(5, 3)
+auto <- cae_encode_decode(5, 3)
 
 auto <- fit(auto, train)
 
@@ -38,3 +39,23 @@ result <- transform(auto, test)
 print(head(result))
 
 print(result-test)
+train['test_sample'] <- 0
+test['test_sample'] <- 1
+pred_data <- rbind(train, test)
+pred_plot_data <- as.data.frame(transform(auto, pred_data[, features]))
+names(pred_plot_data) <- features
+
+ts_df <- rbind(train, test)
+ts_df$pred <- 0
+ts_df$index <- as.numeric(rownames(ts_df))
+pred_plot_data$test_sample <- ts_df$test_sample
+pred_plot_data$pred <- 1
+pred_plot_data$index <- as.numeric(rownames(pred_plot_data))
+rownames(pred_plot_data) <- rownames(ts_df)
+
+plot_data <-rbind(ts_df, pred_plot_data)
+
+ggplot(plot_data, aes(x=index, y=t2, group=pred, colour=pred)) +
+  geom_line() +
+  ylab('t2')
+

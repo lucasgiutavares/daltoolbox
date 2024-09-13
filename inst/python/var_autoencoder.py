@@ -25,9 +25,9 @@ class VAE(nn.Module):
         super(VAE, self).__init__()
 
         self.encoder = nn.Sequential(
-            nn.Linear(input_size, 64),
+            nn.Linear(input_size, 128),
             nn.LeakyReLU(0.2),
-            nn.Linear(64, encoding_size),
+            nn.Linear(128, encoding_size),
             nn.LeakyReLU(0.2))
             
         self.mean_layer = nn.Linear(encoding_size, 2)
@@ -36,9 +36,9 @@ class VAE(nn.Module):
         self.decoder = nn.Sequential(
             nn.Linear(2, encoding_size),
             nn.LeakyReLU(0.2),
-            nn.Linear(encoding_size, 64),
+            nn.Linear(encoding_size, 128),
             nn.LeakyReLU(0.2),
-            nn.Linear(64, input_size),
+            nn.Linear(128, input_size),
             nn.Sigmoid())
     
     def encode(self, x):
