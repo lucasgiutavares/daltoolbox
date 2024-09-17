@@ -120,8 +120,9 @@ def vae_encode_data(vae, data_loader):
       inputs, _ = data
       inputs = inputs.float()
       inputs = inputs.view(inputs.size(0), -1)
-      encoded = vae.mean_layer(inputs)
-      encoded_data.append(encoded.detach().numpy())
+      mean, var = vae.encode(inputs)
+      z = vae.reparameterization(mean, var)
+      encoded_data.append(z.detach().numpy())
 
   encoded_data = np.concatenate(encoded_data, axis=0)
 

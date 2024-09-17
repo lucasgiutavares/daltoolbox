@@ -96,7 +96,6 @@ def cae_encode_data(cae, data_loader):
   for data in data_loader:
       inputs, _ = data
       inputs = inputs.float()
-      #inputs = inputs.view(inputs.size(0), -1)
       encoded = cae.encoder(inputs)
       encoded_data.append(encoded.detach().numpy())
 
@@ -104,7 +103,7 @@ def cae_encode_data(cae, data_loader):
 
   return encoded_data
 
-def cae_encode(cae, data, batch_size = 32):
+def conv_encode(cae, data, batch_size = 32):
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
@@ -122,7 +121,6 @@ def cae_encode_decode_data(cae, data_loader):
   for data in data_loader:
       inputs, _ = data
       inputs = inputs.float()
-      #inputs = inputs.view(inputs.size(0), -1)
       encoded = cae.encoder(inputs)
       decoded = cae.decoder(encoded)
       encoded_decoded_data.append(decoded.detach().numpy())
