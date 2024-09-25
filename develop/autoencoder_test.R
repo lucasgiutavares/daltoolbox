@@ -12,7 +12,6 @@ library(ggpubr)
 #data(sin_data)
 
 sw_size <- 5
-#ts <- ts_data(sin_data$y, sw_size)
 
 ts <- read.csv('/home/lucas/daltoolbox/develop/data/weather.csv', row.names=2)
 ts[,'X'] <- NULL
@@ -33,17 +32,14 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- cae_encode(length(ts), 3)
-ae_type <- 'encoder'
+auto <- vae_encode_decode(length(ts), 2)
+ae_type <- 'decoder'
 
 auto <- fit(auto, train)
 
 # Testing Autoencoder
-print(head(test))
 result <- transform(auto, test)
-print(head(result))
 
-print(result-test)
 train['test_sample'] <- 0
 test['test_sample'] <- 1
 pred_data <- rbind(train, test)
@@ -73,30 +69,38 @@ if (ae_type == 'encoder'){
   
   ggarrange(
     plotlist=plotList,
-    #heights=c(6, 6, 6, 14),
-    #widths=c(8, 8, 8, 18),
     align='v',
     ncol=1, nrow=length(plot_features))
 }else{
   pred_plot_data <- rec_data
   names(pred_plot_data) <- features
   
+  output_features <- lapply(
+    features,
+    function(key) {
+      new_string <- paste0(key, "_rec")      
+      
+      new_string
+    }
+  )
+  
   ts_df$pred <- 0
   pred_plot_data$test_sample <- ts_df$test_sample
   pred_plot_data$pred <- 1
   pred_plot_data$index <- as.numeric(rownames(pred_plot_data))
   rownames(pred_plot_data) <- rownames(ts_df)
+  names(pred_plot_data) <- c(output_features, c('test_sample', 'pred', 'index'))
   
-  plot_data <- rbind(ts_df, pred_plot_data)
+  plot_data <- pred_plot_data
   
-  plot_features <- c(features, output_features)
+  plot_features <- output_features
   plotList <- lapply(
-    features,
+    output_features,
     function(key) {
-      plt <- ggplot(plot_data, aes(x=index, y=eval(parse(text=key)), group=pred, colour=pred)) +
+      plt <- ggplot(plot_data, aes(x=index, y=eval(parse(text=key)))) +
         geom_line() +
         xlab('') +
-        ylab(key) + 
+        ylab(key) +
         theme_classic()
       
       plt
@@ -105,8 +109,6 @@ if (ae_type == 'encoder'){
   
   ggarrange(
     plotlist=plotList,
-    #heights=c(6, 6, 6, 14),
-    #widths=c(8, 8, 8, 18),
     align='v',
     ncol=1, nrow=length(features))
 }
