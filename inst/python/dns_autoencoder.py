@@ -54,9 +54,10 @@ class DNS_AE(nn.Module):
 
 #Create denoising autoencoder (DNS AE)
 def add_noise(data, noise_factor=0.3):
-    data = np.array(data)
-    noisy = (np.random.normal(0, 1, len(data)))
+    noisy = torch.randn_like(data)
     noisy = data + noisy * noise_factor
+    #noisy = torch.clip(noisy, 0., .1)
+    
     return noisy
 
 
@@ -71,7 +72,7 @@ def dns_ae_create(input_size, encoding_size):
 
 
 #Train DNS AE
-def dns_ae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.001):
+def dns_ae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.001, noise_factor=0.3):
     criterion = nn.MSELoss()
     optimizer = optim.Adam(autoencoder.parameters(), lr=learning_rate)
     
@@ -79,6 +80,8 @@ def dns_ae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0
         running_loss = 0.0
         for data in train_loader:
             inputs, _ = data
+            #Add noise to data before train
+            inputs = add_noise(inputs, noise_factor)
             inputs = inputs.float()
             inputs = inputs.view(inputs.size(0), -1)
             optimizer.zero_grad()
@@ -95,17 +98,14 @@ def dns_ae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_r
     batch_size = int(batch_size)
     num_epochs = int(num_epochs)
     
-    #Add noise to data before train
-    array = add_noise(data, noise_factor)
-    #array = data.to_numpy() #The add_noise function already transforms data into a numpy array
+    array = data.to_numpy()
     array = array[:, :, np.newaxis]
     
     ds = DNS_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
-    autoencoder = dns_ae_train(autoencoder, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
+    autoencoder = dns_ae_train(autoencoder, train_loader, num_epochs = num_epochs, learning_rate = learning_rate, noise_factor = noise_factor)
     
-    autoencoder = None
     return autoencoder
 
 
@@ -114,6 +114,8 @@ def encode_data(autoencoder, data_loader):
     encoded_data = []
     for data in data_loader:
         inputs, _ = data
+        #Add noise to data before train
+        inputs = add_noise(inputs)
         inputs = inputs.float()
         inputs = inputs.view(inputs.size(0), -1)
         encoded = autoencoder.encoder(inputs)
@@ -141,6 +143,8 @@ def encode_decode_data(autoencoder, data_loader):
     encoded_decoded_data = []
     for data in data_loader:
         inputs, _ = data
+        #Add noise to data before train
+        inputs = add_noise(inputs)
         inputs = inputs.float()
         inputs = inputs.view(inputs.size(0), -1)
         encoded = autoencoder.encoder(inputs)
