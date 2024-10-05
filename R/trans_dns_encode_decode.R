@@ -33,7 +33,7 @@ fit.dns_encode_decode <- function(obj, data, ...) {
   if (is.null(obj$model))
     obj$model <- dns_ae_create(obj$input_size, obj$encoding_size)
   
-  obj$model <- dns_ae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, noise_factor = noise_factor)
+  obj$model <- dns_ae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, noise_factor = obj$noise_factor)
   
   return(obj)
 }
