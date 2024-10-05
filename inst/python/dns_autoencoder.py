@@ -32,14 +32,14 @@ class DNS_AE(nn.Module):
         super(DNS_AE, self).__init__()
         
         #Encode NN
-        self.encoder == nn.Sequential(
+        self.encoder = nn.Sequential(
             nn.Linear(input_size, 64), #NN Input layer
             nn.ReLU(True), #NN Hidden layer
             nn.Linear(64, encoding_size) ##NN Output layter
             )
         
         #Decode NN
-        self.decoder == nn.Sequential(
+        self.decoder = nn.Sequential(
             nn.Linear(encoding_size, 64), #NN Input layer
             nn.ReLU(True), #NN Hidden layer
             nn.Linear(64, input_size) ##NN Output layter
