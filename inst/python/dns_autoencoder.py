@@ -109,7 +109,7 @@ def dns_ae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_r
     return autoencoder
 
 
-def encode_data(autoencoder, data_loader):
+def dns_encode_data(autoencoder, data_loader):
     # Encode the synthetic time series data using the trained autoencoder
     encoded_data = []
     for data in data_loader:
@@ -126,19 +126,19 @@ def encode_data(autoencoder, data_loader):
     return encoded_data
 
 
-def autoencoder_encode(autoencoder, data, batch_size = 32):
+def dns_encode(autoencoder, data, batch_size = 32):
     array = data.to_numpy()
     array = array[:, :, np.newaxis]
     
     ds = DNS_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
-    encoded_data = encode_data(autoencoder, train_loader)
+    encoded_data = dns_encode_data(autoencoder, train_loader)
     
     return(encoded_data)
 
 
-def encode_decode_data(autoencoder, data_loader):
+def dns_encode_decode_data(autoencoder, data_loader):
     # Encode the synthetic time series data using the trained autoencoder
     encoded_decoded_data = []
     for data in data_loader:
@@ -156,13 +156,13 @@ def encode_decode_data(autoencoder, data_loader):
     return encoded_decoded_data
 
 
-def autoencoder_encode_decode(autoencoder, data, batch_size = 32):
+def dns_encode_decode(autoencoder, data, batch_size = 32):
     array = data.to_numpy()
     array = array[:, :, np.newaxis]
     
     ds = DNS_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
-    encoded_decoded_data = encode_decode_data(autoencoder, train_loader)
+    encoded_decoded_data = dns_encode_decode_data(autoencoder, train_loader)
     
     return(encoded_decoded_data)
