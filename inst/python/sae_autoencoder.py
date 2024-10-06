@@ -63,7 +63,7 @@ def sae_create(input_size, encoding_size, k_ae=3):
     for k in range(k_ae):
         stack.append(SAE(input_size, encoding_size))
         stack[k].float()
-        print(f'Autoencoder layer {k} added to the stack')
+        #print(f'Autoencoder layer {k} added to the stack')
     
     return stack
 
