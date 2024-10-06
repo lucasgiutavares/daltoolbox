@@ -32,9 +32,9 @@ fit.sae_encode_decode <- function(obj, data, ...) {
     reticulate::source_python(system.file("python", "sae_autoencoder.py", package = "daltoolbox"))
   
   if (is.null(obj$model))
-    obj$model <- sae_create(obj$input_size, obj$encoding_size)
+    obj$model <- sae_create(obj$input_size, obj$encoding_size, obj$k_ae)
   
-  obj$model <- sae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, k_ae = obj$k_ae)
+  obj$model <- sae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate)
   
   return(obj)
 }
