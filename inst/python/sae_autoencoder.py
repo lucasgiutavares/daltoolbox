@@ -111,7 +111,8 @@ def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.0
     for k in range(1, internal):
         print(f'Fit ae_k{k}')
         
-        ds = SAE_AutoencoderTS(ae_k_out)
+        #ds = SAE_AutoencoderTS(ae_k_out)
+        ds = ae_k_out
         train_loader = DataLoader(ds, batch_size=batch_size)
         
         ae_k = stack[k]
