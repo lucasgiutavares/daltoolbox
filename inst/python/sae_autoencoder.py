@@ -90,6 +90,9 @@ def sae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_rate
     array = data.to_numpy()
     array = array[:, :, np.newaxis]
     
+    for k in range(k_ae):
+        print(f'Autoencoder layer {k}')
+    
     ds = SAE_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
