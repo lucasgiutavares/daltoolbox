@@ -123,7 +123,7 @@ def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.0
         ae_k_out = sae_encode_decode(ae_k, ae_k_out)
     
     #STEP 3 - Fit last k autoencoder
-    print(f'Fit ae_k{len(stack)}')
+    print(f'Fit ae_k{len(stack)-1}')
     ds = SAE_AutoencoderTS(ae_k_out)
     train_loader = DataLoader(ds, batch_size=batch_size)
     autoencoder = stack[-1]
@@ -176,7 +176,7 @@ def sae_encode_decode_data(autoencoder, data_loader):
 
 
 def sae_encode_decode(autoencoder, data, batch_size = 32):
-    
+    #Condition to check numpy array in internal stacked autoencoders
     if not isinstance(data, np.ndarray):
         array = data.to_numpy()
     else:
