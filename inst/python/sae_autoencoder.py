@@ -52,6 +52,7 @@ class SAE(nn.Module):
         return x
 
 
+#Create Stack of Autoencoders
 def sae_create(input_size, encoding_size, k_ae=3):
     input_size = int(input_size)
     encoding_size = int(encoding_size)
@@ -63,8 +64,6 @@ def sae_create(input_size, encoding_size, k_ae=3):
         stack.append(SAE(input_size, encoding_size))
         stack[k].float()
         print(f'Autoencoder layer {k} added to the stack')
-    
-    #autoencoder = stack[0]
     
     return stack
 
@@ -93,23 +92,36 @@ def sae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.00
 def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001):
     batch_size = int(batch_size)
     num_epochs = int(num_epochs)
-    
-    
+
+    #STEP 1 - Start fitting first k autoencoder using original input layer    
     array = data.to_numpy()
     array = array[:, :, np.newaxis]
     
     ds = SAE_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
-    
-    #Start fitting first k autoencoder using original input layer
+
     ae_k1 = stack[0]
-    ae_k1_out = sae_train(ae_k1, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
+    ae_k1 = sae_train(ae_k1, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
+    ae_k_out = sae_encode_decode(ae_k1, data)
     
-    #To do: Adjust internal layers using outputs from previous layers
-    for k in range(1,len(stack)):
+    #STEP 2 - Fit internal layers using outputs from previous layers
+    internal = int(len(stack)-1)
+    
+    for k in range(internal):
         print(f'Fit ae_k{k}')
         
-    autoencoder = ae_k1_out
+        ds = SAE_AutoencoderTS(ae_k_out)
+        train_loader = DataLoader(ds, batch_size=batch_size)
+        
+        ae_k = stack[k]
+        ae_k = sae_train(ae_k, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
+        ae_k_out = sae_encode_decode(ae_k, ae_k_out)
+    
+    #STEP 3 - Fit last k autoencoder
+    ds = SAE_AutoencoderTS(ae_k_out)
+    train_loader = DataLoader(ds, batch_size=batch_size)
+    autoencoder = stack[-1]
+    autoencoder = sae_train(autoencoder, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
     
     return autoencoder
 
