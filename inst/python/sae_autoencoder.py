@@ -100,7 +100,7 @@ def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.0
     ds = SAE_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
 
-    print(f'Fit ae_k{0}')
+    #print(f'Fit ae_k{0}')
     ae_k1 = stack[0]
     ae_k1 = sae_train(ae_k1, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
     ae_k_out = sae_encode_decode(ae_k1, data)
@@ -111,7 +111,7 @@ def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.0
     internal = int(len(stack)-1)
     
     for k in range(1, internal):
-        print(f'Fit ae_k{k}')
+        #print(f'Fit ae_k{k}')
         
         array = ae_k_out[:, :, np.newaxis]
         ds = SAE_AutoencoderTS(array)
@@ -123,7 +123,7 @@ def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.0
         ae_k_out = sae_encode_decode(ae_k, ae_k_out)
     
     #STEP 3 - Fit last k autoencoder
-    print(f'Fit ae_k{len(stack)-1}')
+    #print(f'Fit ae_k{len(stack)-1}')
     ds = SAE_AutoencoderTS(ae_k_out)
     train_loader = DataLoader(ds, batch_size=batch_size)
     autoencoder = stack[-1]
