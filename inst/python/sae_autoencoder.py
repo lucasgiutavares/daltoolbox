@@ -108,7 +108,7 @@ def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.0
     #STEP 2 - Fit internal layers using outputs from previous layers
     internal = int(len(stack)-1)
     
-    for k in range(internal):
+    for k in range(1, internal):
         print(f'Fit ae_k{k}')
         
         ds = SAE_AutoencoderTS(ae_k_out)
