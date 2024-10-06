@@ -86,6 +86,7 @@ def sae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.00
 def sae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, k_ae=3):
     batch_size = int(batch_size)
     num_epochs = int(num_epochs)
+    k_ae = int(k_ae)
     
     array = data.to_numpy()
     array = array[:, :, np.newaxis]
