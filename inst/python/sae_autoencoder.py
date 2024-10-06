@@ -57,16 +57,16 @@ def sae_create(input_size, encoding_size, k_ae=3):
     encoding_size = int(encoding_size)
     k_ae = int(k_ae)
     
+    #Stack of k autoencoders
     stack = []
-    
     for k in range(k_ae):
         stack.append(SAE(input_size, encoding_size))
         stack[k].float()
         print(f'Autoencoder layer {k} added to the stack')
     
-    autoencoder = stack[0]
+    #autoencoder = stack[0]
     
-    return autoencoder
+    return stack
 
 
 #Train SAE
@@ -90,7 +90,7 @@ def sae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.00
     return autoencoder
 
 
-def sae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001):
+def sae_fit(stack, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001):
     batch_size = int(batch_size)
     num_epochs = int(num_epochs)
     
@@ -101,7 +101,12 @@ def sae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_rate
     ds = SAE_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
-    autoencoder = sae_train(autoencoder, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
+    #Start fitting first k autoencoder using original input layer
+    ae_k1 = stack[0]
+    ae_k1_out = sae_train(ae_k1, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
+    
+    #To do: Adjust internal layers using outputs from previous layers
+    autoencoder = ae_k1_out
     
     return autoencoder
 
