@@ -52,9 +52,17 @@ class SAE(nn.Module):
         return x
 
 
-def sae_create(input_size, encoding_size):
+def sae_create(input_size, encoding_size, k_ae=3):
     input_size = int(input_size)
     encoding_size = int(encoding_size)
+    k_ae = int(k_ae)
+    
+    stack = []
+    
+    for k in range(k_ae):
+        stack.append(SAE(input_size, encoding_size))
+        print(f'Autoencoder layer {k} added to the stack')
+        
     
     autoencoder = SAE(input_size, encoding_size)
     autoencoder.float()
@@ -63,7 +71,7 @@ def sae_create(input_size, encoding_size):
 
 
 #Train SAE
-def sae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.001, k_ae=3):
+def sae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.001):
     criterion = nn.MSELoss()
     optimizer = optim.Adam(autoencoder.parameters(), lr=learning_rate)
     
@@ -83,21 +91,18 @@ def sae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.00
     return autoencoder
 
 
-def sae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, k_ae=3):
+def sae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001):
     batch_size = int(batch_size)
     num_epochs = int(num_epochs)
-    k_ae = int(k_ae)
+    
     
     array = data.to_numpy()
     array = array[:, :, np.newaxis]
     
-    for k in range(k_ae):
-        print(f'Autoencoder layer {k}')
-    
     ds = SAE_AutoencoderTS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
-    autoencoder = sae_train(autoencoder, train_loader, num_epochs = num_epochs, learning_rate = learning_rate, k_ae = k_ae)
+    autoencoder = sae_train(autoencoder, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
     
     return autoencoder
 
