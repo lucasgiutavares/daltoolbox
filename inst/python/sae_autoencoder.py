@@ -176,8 +176,11 @@ def sae_encode_decode_data(autoencoder, data_loader):
 
 
 def sae_encode_decode(autoencoder, data, batch_size = 32):
+    
     if not isinstance(data, np.ndarray):
         array = data.to_numpy()
+    else:
+        array = data
     
     array = array[:, :, np.newaxis]
     
