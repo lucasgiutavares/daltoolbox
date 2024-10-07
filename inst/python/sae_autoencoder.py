@@ -148,7 +148,12 @@ def sae_encode_data(autoencoder, data_loader):
 
 
 def sae_encode(autoencoder, data, batch_size = 32):
-    array = data.to_numpy()
+    #Condition to check numpy array in internal stacked autoencoders
+    if not isinstance(data, np.ndarray):
+        array = data.to_numpy()
+    else:
+        array = data
+        
     array = array[:, :, np.newaxis]
     
     ds = SAE_AutoencoderTS(array)
