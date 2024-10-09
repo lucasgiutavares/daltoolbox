@@ -32,8 +32,8 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- vae_encode_decode(length(ts), 2)
-ae_type <- 'decoder'
+auto <- aae_encode(length(ts), 2)
+ae_type <- 'encoder'
 
 auto <- fit(auto, train)
 

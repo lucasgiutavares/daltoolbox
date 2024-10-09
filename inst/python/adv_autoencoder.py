@@ -237,7 +237,7 @@ def adv_encode_data(aae, data_loader):
       inputs, _ = data
       inputs = inputs.float()
       inputs = inputs.view(inputs.size(0), -1)
-      encoded = aae.encoder(inputs)
+      encoded = aae.Q(inputs)
       encoded_data.append(encoded.detach().numpy())
 
   encoded_data = np.concatenate(encoded_data, axis=0)
@@ -251,7 +251,7 @@ def adv_encode(aae, data, batch_size = 32):
   ds = AAE_TS(array)
   train_loader = DataLoader(ds, batch_size=batch_size)
   
-  encoded_data = encode_data(aae, train_loader)
+  encoded_data = adv_encode_data(aae, train_loader)
   
   return(encoded_data)
 
