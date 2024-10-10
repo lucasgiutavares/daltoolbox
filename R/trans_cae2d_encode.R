@@ -11,7 +11,7 @@
 #'#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
 #'@import reticulate
 #'@export
-cae2d_encode_decode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 50, learning_rate = 0.001) {
+cae2d_encode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 50, learning_rate = 0.001) {
   obj <- dal_transform()
   obj$input_size <- input_size
   obj$encoding_size <- encoding_size
@@ -19,13 +19,13 @@ cae2d_encode_decode <- function(input_size, encoding_size, batch_size = 32, num_
   obj$num_epochs <- num_epochs
   print(num_epochs)
   obj$learning_rate <- learning_rate
-  class(obj) <- append("cae2d_encode_decode", class(obj))
+  class(obj) <- append("cae2d_encode", class(obj))
 
   return(obj)
 }
 
 #'@export
-fit.cae2d_encode_decode <- function(obj, data, return_loss=FALSE, ...) {
+fit.cae2d_encode <- function(obj, data, return_loss=FALSE, ...) {
   if (!exists("cae2d_create"))
     reticulate::source_python(system.file("python", "conv2d_autoencoder.py", package = "daltoolbox"))
 
@@ -44,12 +44,12 @@ fit.cae2d_encode_decode <- function(obj, data, return_loss=FALSE, ...) {
 }
 
 #'@export
-transform.cae2d_encode_decode <- function(obj, data, ...) {
+transform.cae2d_encode <- function(obj, data, ...) {
   if (!exists("cae2d_create"))
     reticulate::source_python(system.file("python", "conv2d_autoencoder.py", package = "daltoolbox"))
 
   result <- NULL
   if (!is.null(obj$model))
-    result <- conv2d_encode_decode(obj$model, data)
+    result <- conv2d_encode(obj$model, data)
   return(result)
 }
