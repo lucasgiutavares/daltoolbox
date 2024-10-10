@@ -11,6 +11,7 @@ options(scipen=999)
 set.seed(1)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 dataset_path <- '/home/lucas/datasets/images/kaggle_chest_c19_xrays/'
 folder_list <- head(list.files(paste0(dataset_path, 'images/')), 3)
 folder_paths <- paste0(dataset_path, 'images/', folder_list, '/images/')
@@ -19,6 +20,11 @@ folder_paths <- paste0(dataset_path, 'images/', folder_list, '/images/')
 folder_list <- head(list.files('/home/lucas/daltoolbox/develop/data/kaggle_xrays/data/'), 3)
 folder_paths <- paste0('/home/lucas/daltoolbox/develop/data/kaggle_xrays/data/', folder_list, '/images/')
 >>>>>>> 8fefea83 (Conv2d Autoencoder Implementation)
+=======
+dataset_path <- '/home/lucas/datasets/images/kaggle_chest_c19_xrays/'
+folder_list <- head(list.files(paste0(dataset_path, 'images/')), 3)
+folder_paths <- paste0(dataset_path, 'images/', folder_list, '/images/')
+>>>>>>> 1c06c0c2 (Conv2d Encoder and return_loss implementation)
 file_names <- map(folder_paths, function(x) paste0(x, list.files(x))) %>%
   unlist()
 
@@ -42,10 +48,14 @@ map(img, plot)
 
 # Sample the data
 <<<<<<< HEAD
+<<<<<<< HEAD
 sample_images <- sample(file_names, 400)
 =======
 sample_images <- sample(file_names, 100)
 >>>>>>> 8fefea83 (Conv2d Autoencoder Implementation)
+=======
+sample_images <- sample(file_names, 400)
+>>>>>>> 1c06c0c2 (Conv2d Encoder and return_loss implementation)
 
 # Check dimensions
 img <- load.image(file_names[1])
@@ -68,6 +78,7 @@ input_size <- as.array(c(1, as.vector(unlist(dim_df[1, c('height', 'width')]))))
 
 # Create Dataset
 <<<<<<< HEAD
+<<<<<<< HEAD
 sample_size <- 200
 train <- array(0, c(length(sample_images)/2, input_size[1], input_size[2], input_size[3]))
 test <- array(0, c(length(sample_images)/2, input_size[1], input_size[2], input_size[3]))
@@ -81,6 +92,14 @@ a <- 1
 for (i in sample_images[1:50]){
   if (a <= 50){
 >>>>>>> 8fefea83 (Conv2d Autoencoder Implementation)
+=======
+sample_size <- 200
+train <- array(0, c(length(sample_images)/2, input_size[1], input_size[2], input_size[3]))
+test <- array(0, c(length(sample_images)/2, input_size[1], input_size[2], input_size[3]))
+a <- 1
+for (i in sample_images[1:sample_size]){
+  if (a <= sample_size){
+>>>>>>> 1c06c0c2 (Conv2d Encoder and return_loss implementation)
     train[a, 1, , ] <- as.array(load.image(i))
   }else{
     test[a, 1, , ] <- as.array(load.image(i))
@@ -92,6 +111,7 @@ dim(train)
 dim(test)
 
 # Transform
+<<<<<<< HEAD
 <<<<<<< HEAD
 auto <- cae2d_encode_decode(input_size, encoding_size=4, num_epochs=100)
 ae_type <- 'decoder'
@@ -120,12 +140,38 @@ ae_type <- 'decoder'
 
 auto <- fit(auto, train)
 >>>>>>> 8fefea83 (Conv2d Autoencoder Implementation)
+=======
+auto <- cae2d_encode_decode(input_size, encoding_size=4, num_epochs=100)
+ae_type <- 'decoder'
+
+return_loss <- TRUE
+fit_output <- fit(auto, train, return_loss=return_loss)
+auto <- fit_output[1]
+
+train_loss <- unlist(fit_output[['loss']][[1]])
+val_loss <- unlist(fit_output[['loss']][[2]])
+
+fit_loss <- as.data.frame(cbind(train_loss, val_loss))
+fit_loss['epoch'] <- 1:nrow(fit_loss)
+
+
+if (return_loss){
+  ggplot(fit_loss, aes(x=epoch)) +
+    geom_line(aes(y=train_loss, colour='Train Loss')) +
+    geom_line(aes(y=val_loss, colour='Val Loss')) +
+    scale_color_manual(values=c('Blue','Orange')) +
+    theme_classic()
+}
+>>>>>>> 1c06c0c2 (Conv2d Encoder and return_loss implementation)
 
 result <- transform(auto, train)
 
 dim(result)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1c06c0c2 (Conv2d Encoder and return_loss implementation)
 if (ae_type == 'encoder'){
   ggplot(as.data.frame(result), aes(x=V1, y=V2)) +
     geom_point() +
@@ -152,6 +198,7 @@ if (ae_type == 'encoder'){
   
   par(mfrow=(c(1,2)))
   map(names(plot_comparison), plot_image, col=grey.colors(50), img_list=plot_comparison)
+<<<<<<< HEAD
 }
 =======
 example_result <- result[1, 1, , ]
@@ -176,3 +223,6 @@ par(mfrow=(c(1,2)))
 map(names(plot_comparison), plot_image, col=grey.colors(50), img_list=plot_comparison)
 
 >>>>>>> 8fefea83 (Conv2d Autoencoder Implementation)
+=======
+}
+>>>>>>> 1c06c0c2 (Conv2d Encoder and return_loss implementation)
