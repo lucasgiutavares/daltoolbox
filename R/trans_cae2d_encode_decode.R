@@ -17,7 +17,6 @@ cae2d_encode_decode <- function(input_size, encoding_size, batch_size = 32, num_
   obj$encoding_size <- encoding_size
   obj$batch_size <- batch_size
   obj$num_epochs <- num_epochs
-  print(num_epochs)
   obj$learning_rate <- learning_rate
   class(obj) <- append("cae2d_encode_decode", class(obj))
 
@@ -36,9 +35,11 @@ fit.cae2d_encode_decode <- function(obj, data, return_loss=FALSE, ...) {
   
   if (return_loss){
     fit_output <- cae2d_fit(obj$model, np_array(data), num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
+    obj$model <- fit_output[[1]]
     
     return(list(obj=obj, loss=fit_output[-1]))
   }else{
+    obj$model <- cae2d_fit(obj$model, np_array(data), num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
     return(obj) 
   }
 }
