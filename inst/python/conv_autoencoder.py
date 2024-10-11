@@ -113,7 +113,7 @@ def cae_fit(cae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001
   val_loader = DataLoader(ds_val, batch_size=batch_size)
   
   if return_loss:
-    aae, train_loss, val_loss = cae_train(cae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+    cae, train_loss, val_loss = cae_train(cae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
     return cae, train_loss, val_loss
   else:
     return cae
