@@ -54,49 +54,77 @@ def cae_create(input_size, encoding_size):
   return cae  
 
 # Train the cae
-def cae_train(cae, train_loader, num_epochs = 1000, learning_rate = 0.001):
+def cae_train(cae, train_loader, val_loader, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
   criterion = nn.MSELoss()
   optimizer = optim.Adam(cae.parameters(), lr=learning_rate)
 
+  train_loss = []
+  val_loss = []
+  
   for epoch in range(num_epochs):
-      running_loss = 0.0
-      for data in train_loader:
-          inputs, _ = data
-          inputs = inputs.float()
-          #inputs = inputs.view(inputs.size(0), -1)
+      train_epoch_loss = []
+      val_epoch_loss = []
+      # Train
+      cae.train()
+      for train_data in train_loader:
+          train_input, _ = train_data
+          train_input = train_input.float()
           optimizer.zero_grad()
-          output = cae(inputs)
-          loss = criterion(output, inputs)
-          loss.backward()
+          train_output = cae(train_input)
+          train_batch_loss = criterion(train_output, train_input)
+          train_batch_loss.backward()
           optimizer.step()
-          running_loss += loss.item()
-#      if (epoch + 1) % 100 == 0:
-#          print('Epoch {} Loss: {:.4f}'.format(epoch+1, running_loss/len(train_loader)))
+          train_epoch_loss.append(train_batch_loss.item())
+          
+          
+      # Validation
+      cae.eval()
+      for val_data in val_loader:
+          val_input, _ = val_data
+          val_input = val_input.float()
+          val_output = cae(val_input)
+          val_batch_loss = criterion(val_output, val_input)
+          val_epoch_loss.append(val_batch_loss.item())
+          
+      train_loss.append(np.mean(train_epoch_loss))
+      val_loss.append(np.mean(val_epoch_loss))
 
-  return cae
+  if return_loss:
+    return cae, train_loss, val_loss
+  else:
+    return cae
 
-def cae_fit(cae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001):
+def cae_fit(cae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
   batch_size = int(batch_size)
   num_epochs = int(num_epochs)
   
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
-  ds = CAE_TS(array)
-  train_loader = DataLoader(ds, batch_size=batch_size)
+  val_sample = sample(range(1, data.shape[0], 1), k=int(data.shape[0]*0.3))
+  train_sample = [v for v in range(1, data.shape[0], 1) if v not in val_sample]
   
-  cae = cae_train(cae, train_loader, num_epochs = 1000, learning_rate = 0.001)
+  train_data = array[train_sample, :, :]
+  val_data = array[val_sample, :, :]
   
-  return cae
+  ds_train = CAE_TS(train_data)
+  ds_val = CAE_TS(val_data)
+  train_loader = DataLoader(ds_train, batch_size=batch_size)
+  val_loader = DataLoader(ds_val, batch_size=batch_size)
+  
+  if return_loss:
+    aae, train_loss, val_loss = cae_train(cae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+    return cae, train_loss, val_loss
+  else:
+    return cae
 
 
-def cae_encode_data(cae, data_loader):
+def conv_encode_data(cae, data_loader):
   # Encode the synthetic time series data using the trained cae
   encoded_data = []
   for data in data_loader:
       inputs, _ = data
       inputs = inputs.float()
-      #inputs = inputs.view(inputs.size(0), -1)
       encoded = cae.encoder(inputs)
       encoded_data.append(encoded.detach().numpy())
 
@@ -104,25 +132,24 @@ def cae_encode_data(cae, data_loader):
 
   return encoded_data
 
-def cae_encode(cae, data, batch_size = 32):
+def conv_encode(cae, data, batch_size = 32):
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
   ds = CAE_TS(array)
   train_loader = DataLoader(ds, batch_size=batch_size)
   
-  encoded_data = cae_encode_data(cae, train_loader)
+  encoded_data = conv_encode_data(cae, train_loader)
   
   return(encoded_data)
 
 
-def cae_encode_decode_data(cae, data_loader):
+def conv_encode_decode_data(cae, data_loader):
   # Encode the synthetic time series data using the trained cae
   encoded_decoded_data = []
   for data in data_loader:
       inputs, _ = data
       inputs = inputs.float()
-      #inputs = inputs.view(inputs.size(0), -1)
       encoded = cae.encoder(inputs)
       decoded = cae.decoder(encoded)
       encoded_decoded_data.append(decoded.detach().numpy())
@@ -139,7 +166,7 @@ def conv_encode_decode(cae, data, batch_size = 32):
   ds = CAE_TS(array)
   train_loader = DataLoader(ds, batch_size=batch_size)
   
-  encoded_decoded_data = cae_encode_decode_data(cae, train_loader)
+  encoded_decoded_data = conv_encode_decode_data(cae, train_loader)
   
   return(encoded_decoded_data)
   
