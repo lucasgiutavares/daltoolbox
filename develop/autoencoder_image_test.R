@@ -113,12 +113,17 @@ dim(test)
 # Transform
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 auto <- cae2d_encode_decode(input_size, encoding_size=4, num_epochs=100)
 ae_type <- 'decoder'
+=======
+auto <- cae2d_encode(input_size, encoding_size=4, num_epochs=100)
+ae_type <- 'encoder'
+>>>>>>> a6be2796 (Bug fix return_loss)
 
 return_loss <- TRUE
 fit_output <- fit(auto, train, return_loss=return_loss)
-auto <- fit_output[1]
+auto <- fit_output[[1]]
 
 train_loss <- unlist(fit_output[['loss']][[1]])
 val_loss <- unlist(fit_output[['loss']][[2]])
