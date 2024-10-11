@@ -5,16 +5,23 @@ source("https://raw.githubusercontent.com/cefet-rj-dal/daltoolbox/main/jupyter.R
 
 #loading DAL
 library(devtools)
-load_all("/home/lucas/daltoolbox/")
+load_all("/home/lucas/daltoolbox")
 library(ggpubr)
+set.seed(1)
 
 # Dataset
 #data(sin_data)
 
 sw_size <- 5
 
-ts <- read.csv('/home/lucas/daltoolbox/develop/data/weather.csv', row.names=2)
+ts <- read.csv('/home/lucas/datasets/timeseries/eeg_eye_state/processed/eeg_eye_state.csv')
 ts[,'X'] <- NULL
+ts[,'eyeDetection'] <- NULL
+
+# Remove Outliers
+outl <- outliers(alpha=1.5)
+outl <- fit(outl, ts)
+ts <- transform(outl, ts)
 
 ts_head(ts)
 
@@ -23,25 +30,44 @@ preproc <- ts_norm_gminmax()
 preproc <- fit(preproc, ts)
 ts <- transform(preproc, ts)
 
+ts[ts > 1] <- 1
+ts[ts < 0] <- 0
+
 ts_head(ts)
 
 # Train Test Split
-samp <- ts_sample(ts, test_size = 10)
+samp <- ts_sample(ts, test_size = as.integer(nrow(ts)*0.3))
 train <- as.data.frame(samp$train)
 test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- aae_encode(length(ts), 2)
-ae_type <- 'encoder'
+auto <- autoenc_encode_decode(length(ts), encoding_size=6, num_epochs=50)
+ae_type <- 'decoder'
 
-auto <- fit(auto, train)
+return_loss <- TRUE
+fit_output <- fit(auto, train, return_loss=return_loss)
+#auto <- fit_output[['obj']]
+auto <- fit_output
+
+#train_loss <- unlist(fit_output[['loss']][[1]])
+#val_loss <- unlist(fit_output[['loss']][[2]])
+
+#fit_loss <- as.data.frame(cbind(train_loss, val_loss))
+#fit_loss['epoch'] <- 1:nrow(fit_loss)
+
+
+#if (return_loss){
+#  ggplot(fit_loss, aes(x=epoch)) +
+#    geom_line(aes(y=train_loss, colour='Train Loss')) +
+#    geom_line(aes(y=val_loss, colour='Val Loss')) +
+#    scale_color_manual(values=c('Blue','Orange')) +
+#    theme_classic()
+#}
 
 # Testing Autoencoder
 result <- transform(auto, test)
 
-train['test_sample'] <- 0
-test['test_sample'] <- 1
 pred_data <- rbind(train, test)
 rec_data <- as.data.frame(transform(auto, pred_data[, features]))
 
@@ -86,21 +112,21 @@ if (ae_type == 'encoder'){
   
   ts_df$pred <- 0
   pred_plot_data$test_sample <- ts_df$test_sample
-  pred_plot_data$pred <- 1
   pred_plot_data$index <- as.numeric(rownames(pred_plot_data))
   rownames(pred_plot_data) <- rownames(ts_df)
-  names(pred_plot_data) <- c(output_features, c('test_sample', 'pred', 'index'))
+  names(pred_plot_data) <- c(output_features, c('index'))
   
-  plot_data <- pred_plot_data
+  plot_data <- cbind(pred_plot_data, ts)
   
   plot_features <- output_features
   plotList <- lapply(
     output_features,
     function(key) {
-      plt <- ggplot(plot_data, aes(x=index, y=eval(parse(text=key)))) +
-        geom_line() +
+      plt <- ggplot(plot_data, aes(x=index)) +
+        geom_line(aes(y=eval(parse(text=key)), , colour='Reconstructed')) +
+        geom_line(aes(y=eval(parse(text=substr(key, 1, nchar(key)-4))), colour='Original')) +
         xlab('') +
-        ylab(key) +
+        ylab(substr(key, 1, nchar(key)-4)) +
         theme_classic()
       
       plt

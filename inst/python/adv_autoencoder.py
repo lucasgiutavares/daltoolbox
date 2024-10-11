@@ -4,6 +4,7 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 from torch.autograd import Variable
+from random import sample
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -116,9 +117,6 @@ class AAE(nn.Module):
         
         self.D_gauss = D_net_gauss(input_size, encoding_size)
         
-        
-
-    
 # Create the aae
 def aae_create(input_size, encoding_size):
   input_size = int(input_size)
@@ -143,7 +141,7 @@ def aae_create(input_size, encoding_size):
 
 
 # Train the aae
-def aae_train(aae, train_loader, num_epochs = 1000, learning_rate = 0.001):
+def aae_train(aae, train_loader, val_loader, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
   TINY = 1e-15
   # Set the networks in train mode (apply dropout when needed)
   aae.Q.train()
@@ -155,80 +153,116 @@ def aae_train(aae, train_loader, num_epochs = 1000, learning_rate = 0.001):
   aae.Q.zero_grad()
   aae.D_gauss.zero_grad()
   
+  train_loss = []
+  val_loss = []
+  
   for epoch in range(num_epochs):
-      running_loss = 0.0
-      for data in train_loader:
-          inputs, _ = data
-          inputs = inputs.float()
-          inputs = inputs.view(inputs.size(0), -1)
-  
-          #######################
-          # Reconstruction phase
-          #######################
-          z_sample = aae.Q(inputs)
-          X_sample = aae.P(z_sample)
-          recon_loss = F.binary_cross_entropy(X_sample + TINY, inputs + TINY)
-  
-          recon_loss.backward()
-          aae.decoder.step()
-          aae.encoder.step()
-  
-          aae.P.zero_grad()
-          aae.Q.zero_grad()
-          aae.D_gauss.zero_grad()
-  
-          #######################
-          # Regularization phase
-          #######################
-          # Discriminator
-          aae.Q.eval()
-          z_real_gauss = Variable(torch.randn(14, aae.encoding_size) * 5.)
+    
+    train_epoch_loss = []
+    val_epoch_loss = []
+    
+    for data in train_loader:
+        train_input, _ = data
+        train_input = train_input.float()
+        train_input = train_input.view(train_input.size(0), -1)
 
-          z_fake_gauss = aae.Q(inputs)
-  
-          D_real_gauss = aae.D_gauss(z_real_gauss)
-          D_fake_gauss = aae.D_gauss(z_fake_gauss)
-  
-          D_loss = -torch.mean(torch.log(D_real_gauss + TINY) + torch.log(1 - D_fake_gauss + TINY))
-  
-          D_loss.backward()
-          aae.D_gauss_solver.step()
-  
-          aae.P.zero_grad()
-          aae.Q.zero_grad()
-          aae.D_gauss.zero_grad()
-  
-          # Generator
-          aae.Q.train()
-          z_fake_gauss = aae.Q(inputs)
-  
-          D_fake_gauss = aae.D_gauss(z_fake_gauss)
-          G_loss = -torch.mean(torch.log(D_fake_gauss + TINY))
-  
-          G_loss.backward()
-          aae.generator.step()
-  
-          aae.P.zero_grad()
-          aae.Q.zero_grad()
-          aae.D_gauss.zero_grad()
+        #######################
+        # Reconstruction phase
+        #######################
+        z_sample = aae.Q(train_input)
+        X_sample = aae.P(z_sample)
+        recon_loss = F.binary_cross_entropy(X_sample + TINY, train_input + TINY)
 
-  return aae
+        recon_loss.backward()
+        aae.decoder.step()
+        aae.encoder.step()
 
-def aae_fit(aae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001):
+        aae.P.zero_grad()
+        aae.Q.zero_grad()
+        aae.D_gauss.zero_grad()
+
+        #######################
+        # Regularization phase
+        #######################
+        # Discriminator
+        aae.Q.eval()
+        z_real_gauss = Variable(torch.randn(len(train_input), aae.encoding_size) * 5.)
+
+        z_fake_gauss = aae.Q(train_input)
+
+        D_real_gauss = aae.D_gauss(z_real_gauss)
+        D_fake_gauss = aae.D_gauss(z_fake_gauss)
+
+        D_loss = -torch.mean(torch.log(D_real_gauss + TINY) + torch.log(1 - D_fake_gauss + TINY))
+
+        D_loss.backward()
+        aae.D_gauss_solver.step()
+
+        aae.P.zero_grad()
+        aae.Q.zero_grad()
+        aae.D_gauss.zero_grad()
+
+        # Generator
+        aae.Q.train()
+        z_fake_gauss = aae.Q(train_input)
+
+        D_fake_gauss = aae.D_gauss(z_fake_gauss)
+        G_loss = -torch.mean(torch.log(D_fake_gauss + TINY))
+
+        G_loss.backward()
+        aae.generator.step()
+
+        aae.P.zero_grad()
+        aae.Q.zero_grad()
+        aae.D_gauss.zero_grad()
+        train_epoch_loss.append(recon_loss.item())
+        
+    for data in val_loader:
+        val_input, _ = data
+        val_input = val_input.float()
+        val_input = val_input.view(val_input.size(0), -1)
+        
+        val_z = aae.Q(val_input)
+        val_output = aae.P(val_z)
+        
+        val_batch_loss = F.binary_cross_entropy(val_output + TINY, val_input + TINY)
+        val_epoch_loss.append(val_batch_loss.item())
+        train_epoch_loss.append(val_batch_loss.item())
+        
+    print('Epoch', epoch, 'done')
+        
+    train_loss.append(np.mean(train_epoch_loss))
+    val_loss.append(np.mean(val_epoch_loss))
+
+  if return_loss:
+    return aae, train_loss, val_loss
+  else:
+    return aae
+
+def aae_fit(aae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
+  
   batch_size = int(batch_size)
   num_epochs = int(num_epochs)
   
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
-  ds = AAE_TS(array)
-  train_loader = DataLoader(ds, batch_size=batch_size)
+  val_sample = sample(range(1, data.shape[0], 1), k=int(data.shape[0]*0.3))
+  train_sample = [v for v in range(1, data.shape[0], 1) if v not in val_sample]
   
-  aae = aae_train(aae, train_loader, num_epochs = 1000, learning_rate = 0.001)
+  train_data = array[train_sample, :, :]
+  val_data = array[val_sample, :, :]
   
-  return aae
-
-
+  ds_train = AAE_TS(train_data)
+  ds_val = AAE_TS(val_data)
+  train_loader = DataLoader(ds_train, batch_size=batch_size)
+  val_loader = DataLoader(ds_val, batch_size=batch_size)
+  
+  if return_loss:
+    aae, train_loss, val_loss = aae_train(aae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+    return aae, train_loss, val_loss
+  else:
+    return aae
 
 def adv_encode_data(aae, data_loader):
   # Encode the synthetic time series data using the trained aae
@@ -245,6 +279,7 @@ def adv_encode_data(aae, data_loader):
   return encoded_data
 
 def adv_encode(aae, data, batch_size = 32):
+  print('test')
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
