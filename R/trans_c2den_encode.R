@@ -11,7 +11,7 @@
 #'#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
 #'@import reticulate
 #'@export
-c2den_encode_decode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 50, learning_rate = 0.001) {
+c2den_encode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 50, learning_rate = 0.001) {
   obj <- dal_transform()
   obj$input_size <- input_size
   obj$encoding_size <- encoding_size
@@ -19,13 +19,13 @@ c2den_encode_decode <- function(input_size, encoding_size, batch_size = 32, num_
   obj$num_epochs <- num_epochs
   print(num_epochs)
   obj$learning_rate <- learning_rate
-  class(obj) <- append("c2den_encode_decode", class(obj))
+  class(obj) <- append("c2den_encode", class(obj))
 
   return(obj)
 }
 
 #'@export
-fit.c2den_encode_decode <- function(obj, data, return_loss=FALSE, ...) {
+fit.c2den_encode <- function(obj, data, return_loss=FALSE, ...) {
   if (!exists("c2den_create"))
     reticulate::source_python(system.file("python", "conv2den_autoencoder.py", package = "daltoolbox"))
 
@@ -50,12 +50,12 @@ fit.c2den_encode_decode <- function(obj, data, return_loss=FALSE, ...) {
 }
 
 #'@export
-transform.cae2d_encode_decode <- function(obj, data, ...) {
+transform.cae2d_encode <- function(obj, data, ...) {
   if (!exists("c2den_create"))
     reticulate::source_python(system.file("python", "conv2den_autoencoder.py", package = "daltoolbox"))
 
   result <- NULL
   if (!is.null(obj$model))
-    result <- c2den_encode_decode(obj$model, data)
+    result <- c2den_encode(obj$model, data)
   return(result)
 }

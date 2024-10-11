@@ -133,52 +133,81 @@ def c2den_create(input_size, encoding_size):
   return c2den  
 
 # Train the cae
-def c2den_train(c2den, train_loader, num_epochs = 1000, learning_rate = 0.001):
+def c2den_train(c2den, train_loader, val_loader, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
   criterion = nn.MSELoss()
   optimizer = optim.Adam(c2den.parameters(), lr=learning_rate)
   
+  train_loss = []
+  val_loss = []
+  
   for epoch in range(num_epochs):
-      running_loss = 0.0
-      for data in train_loader:
-          inputs, _ = data
-          inputs = inputs.float()
+      train_epoch_loss = []
+      val_epoch_loss = []
+      # Train
+      c2den.train()
+      for train_data in train_loader:
+          train_input, _ = train_data
+          train_input = train_input.float()
           optimizer.zero_grad()
-          output = c2den(inputs)
-          loss = criterion(output, inputs)
-          loss.backward()
+          train_output = c2den(train_input)
+          train_batch_loss = criterion(train_output, train_input)
+          train_batch_loss.backward()
           optimizer.step()
-          running_loss += loss.item()
-#      if (epoch + 1) % 100 == 0:
-#          print('Epoch {} Loss: {:.4f}'.format(epoch+1, running_loss/len(train_loader)))
+          train_epoch_loss.append(train_batch_loss.item())
+          
+          
+      # Validation
+      c2den.eval()
+      for val_data in val_loader:
+          val_input, _ = val_data
+          val_input = val_input.float()
+          val_output = c2den(val_input)
+          val_batch_loss = criterion(val_output, val_input)
+          val_epoch_loss.append(val_batch_loss.item())
+          
+      train_loss.append(np.mean(train_epoch_loss))
+      val_loss.append(np.mean(val_epoch_loss))
 
-  return c2den
+  if return_loss:
+    return c2den, train_loss, val_loss
+  else:
+    return c2den
 
-def c2den_fit(c2den, data, batch_size = 20, num_epochs = 50, learning_rate = 0.001):
+def c2den_fit(c2den, data, batch_size = 20, num_epochs = 50, learning_rate = 0.001, return_loss=False):
   batch_size = int(batch_size)
   num_epochs = int(num_epochs)
   
-  ds = C2DEN_TS(data)
-  train_loader = DataLoader(ds, batch_size=batch_size)
+  val_sample = sample(range(1, 200, 1), k=int(data.shape[0]*0.3))
+  train_sample = [v for v in range(1, 200, 1) if v not in val_sample]
   
-  c2den = c2den_train(c2den, train_loader, num_epochs = num_epochs, learning_rate = learning_rate)
+  train_data = data[train_sample, :, :, :]
+  val_data = data[val_sample, :, :, :]
   
-  return c2den
+  ds_train = C2DEN_TS(train_data)
+  ds_val = C2DEN_TS(val_data)
+  train_loader = DataLoader(ds_train, batch_size=batch_size)
+  val_loader = DataLoader(ds_val, batch_size=batch_size)
+  
+  if return_loss:
+    c2den, train_loss, val_loss = c2den_train(c2den, train_loader, val_loader, num_epochs = num_epochs, learning_rate = learning_rate, return_loss=return_loss)
+    return c2den, train_loss, val_loss
+  else:
+    return c2den
 
-
-def c2den_encode_data(cae2d, data_loader):
+def c2den_encode_data(c2den, data_loader):
   # Encode the synthetic time series data using the trained cae
   encoded_data = []
   for data in data_loader:
       inputs, _ = data
       inputs = inputs.float()
-      encoded = cae2d.encoder(inputs)
+      encoded = c2den.encoder(inputs)
       encoded_data.append(encoded.detach().numpy())
 
   encoded_data = np.concatenate(encoded_data, axis=0)
 
   return encoded_data
 
-def conv2den_encode(c2den, data, batch_size = 32):
+def c2den_encode(c2den, data, batch_size = 32):
   array = data[:, :, np.newaxis]
   
   ds = C2DEN_TS(array)
@@ -205,7 +234,7 @@ def c2den_encode_decode_data(c2den, data_loader):
   return encoded_decoded_data
 
 
-def conv2d_encode_decode(c2den, data, batch_size = 32):
+def c2den_encode_decode(c2den, data, batch_size = 32):
   ds = C2DEN_TS(data)
   train_loader = DataLoader(ds, batch_size=batch_size)
   
