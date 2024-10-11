@@ -42,27 +42,28 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- autoenc_encode(length(ts), encoding_size=1, num_epochs=50)
-ae_type <- 'encoder'
+auto <- autoenc_encode_decode(length(ts), encoding_size=4, num_epochs=50)
+ae_type <- 'decoder'
 
-return_loss <- TRUE
-fit_output <- fit(auto, train, return_loss=return_loss)
-auto <- fit_output[['obj']]
-#auto <- fit_output
-
-train_loss <- unlist(fit_output[['loss']][[1]])
-val_loss <- unlist(fit_output[['loss']][[2]])
-
-fit_loss <- as.data.frame(cbind(train_loss, val_loss))
-fit_loss['epoch'] <- 1:nrow(fit_loss)
-
-
+return_loss <- FALSE
 if (return_loss){
+  fit_output <- fit(auto, train, return_loss=return_loss)
+  auto <- fit_output[['obj']]
+  #auto <- fit_output
+  
+  train_loss <- unlist(fit_output[['loss']][[1]])
+  val_loss <- unlist(fit_output[['loss']][[2]])
+  
+  fit_loss <- as.data.frame(cbind(train_loss, val_loss))
+  fit_loss['epoch'] <- 1:nrow(fit_loss)
+  
   ggplot(fit_loss, aes(x=epoch)) +
     geom_line(aes(y=train_loss, colour='Train Loss')) +
     geom_line(aes(y=val_loss, colour='Val Loss')) +
     scale_color_manual(values=c('Blue','Orange')) +
     theme_classic()
+}else{
+  auto <- fit(auto, train, return_loss=return_loss)
 }
 
 # Testing Autoencoder
