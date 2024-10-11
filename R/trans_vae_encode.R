@@ -11,27 +11,27 @@
 #'#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
 #'@import reticulate
 #'@export
-vae_encode_decode <- function(input_size, encoding_size, mean_var_size=6, batch_size = 32, num_epochs = 1000, learning_rate = 0.001) {
+vae_encode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 1000, learning_rate = 0.001) {
   obj <- dal_transform()
   obj$input_size <- input_size
   obj$encoding_size <- encoding_size
-  obj$mean_var_size <- mean_var_size
   obj$batch_size <- batch_size
   obj$num_epochs <- num_epochs
   obj$learning_rate <- learning_rate
-  class(obj) <- append("vae_encode_decode", class(obj))
-
+  class(obj) <- append("vae_encode", class(obj))
+  
   return(obj)
 }
 
 #'@export
-fit.vae_encode_decode <- function(obj, data, ...) {
+fit.vae_encode <- function(obj, data, return_loss=FALSE, ...) {
   if (!exists("vae_create"))
     reticulate::source_python(system.file("python", "var_autoencoder.py", package = "daltoolbox"))
-
+  
   if (is.null(obj$model))
-    obj$model <- vae_create(obj$input_size, obj$encoding_size, obj$mean_var_size)
-
+    obj$model <- vae_create(obj$input_size, obj$encoding_size)
+  
+  
   if (return_loss){
     fit_output <- vae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
     obj$model <- fit_output[[1]]
@@ -41,15 +41,17 @@ fit.vae_encode_decode <- function(obj, data, ...) {
     obj$model <- vae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
     return(obj) 
   }
+  
+  return(obj)
 }
 
 #'@export
-transform.vae_encode_decode <- function(obj, data, ...) {
+transform.vae_encode <- function(obj, data, ...) {
   if (!exists("vae_create"))
     reticulate::source_python(system.file("python", "var_autoencoder.py", package = "daltoolbox"))
-
+  
   result <- NULL
   if (!is.null(obj$model))
-    result <- var_encode_decode(obj$model, data)
+    result <- var_encode(obj$model, data)
   return(result)
 }
