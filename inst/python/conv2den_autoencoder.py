@@ -11,13 +11,13 @@ import pandas as pd
 
 class Encoder(nn.Module):
     
-    def __init__(self, encoded_space_dim,fc2_input_dim):
+    def __init__(self, encoded_space_dim,fc2_input_dim, padding=0):
         super().__init__()
         
         ### Convolutional section
         self.encoder_cnn = nn.Sequential(
             # First convolutional layer
-            nn.Conv2d(1, 8, 3, stride=2, padding=1),
+            nn.Conv2d(1, 8, 3, stride=2, padding=padding),
             #nn.BatchNorm2d(8),
             nn.ReLU(True),
             # Second convolutional layer
@@ -36,7 +36,7 @@ class Encoder(nn.Module):
         ### Linear section
         self.encoder_lin = nn.Sequential(
             # First linear layer
-            nn.Linear(3 * 3 * 32, 128),
+            nn.Linear(148 * 296, 128),
             nn.ReLU(True),
             # Second linear layer
             nn.Linear(128, encoded_space_dim)
@@ -54,7 +54,7 @@ class Encoder(nn.Module):
 
 class Decoder(nn.Module):
     
-    def __init__(self, encoded_space_dim,fc2_input_dim):
+    def __init__(self, encoded_space_dim, fc2_input_dim, padding=0):
         super().__init__()
 
         ### Linear section
@@ -63,12 +63,12 @@ class Decoder(nn.Module):
             nn.Linear(encoded_space_dim, 128),
             nn.ReLU(True),
             # Second linear layer
-            nn.Linear(128, 3 * 3 * 32),
+            nn.Linear(128, 148 * 296),
             nn.ReLU(True)
         )
 
         ### Unflatten
-        self.unflatten = nn.Unflatten(dim=1, unflattened_size=(32, 3, 3))
+        self.unflatten = nn.Unflatten(dim=1, unflattened_size=(32, 37, 37))
 
         ### Convolutional section
         self.decoder_conv = nn.Sequential(
@@ -81,7 +81,7 @@ class Decoder(nn.Module):
             nn.BatchNorm2d(8),
             nn.ReLU(True),
             # Third transposed convolution
-            nn.ConvTranspose2d(8, 1, 3, stride=2, padding=1, output_padding=1)
+            nn.ConvTranspose2d(8, 1, 3, stride=2, padding=1, output_padding=padding)
         )
         
     def forward(self, x):
@@ -114,8 +114,8 @@ class C2DEN(nn.Module):
     def __init__(self, input_size, encoding_size, filter_size=1, kernel_size=4, padding=0, stride=1):
         super(C2DEN, self).__init__()
         
-        self.encoder = Encoder(encoded_space_dim=d, fc2_input_dim=128)
-        self.decoder = Decoder(encoded_space_dim=d, fc2_input_dim=128)
+        self.encoder = Encoder(encoded_space_dim=encoding_size, padding=padding, fc2_input_dim=128)
+        self.decoder = Decoder(encoded_space_dim=encoding_size, padding=padding, fc2_input_dim=128)
         
     def forward(self, x):
       x = self.encoder(x)
@@ -192,6 +192,7 @@ def c2den_fit(c2den, data, batch_size = 20, num_epochs = 50, learning_rate = 0.0
     c2den, train_loss, val_loss = c2den_train(c2den, train_loader, val_loader, num_epochs = num_epochs, learning_rate = learning_rate, return_loss=return_loss)
     return c2den, train_loss, val_loss
   else:
+    c2den = c2den_train(c2den, train_loader, val_loader, num_epochs = num_epochs, learning_rate = learning_rate, return_loss=return_loss)
     return c2den
 
 def c2den_encode_data(c2den, data_loader):
@@ -208,9 +209,8 @@ def c2den_encode_data(c2den, data_loader):
   return encoded_data
 
 def c2den_encode(c2den, data, batch_size = 32):
-  array = data[:, :, np.newaxis]
-  
-  ds = C2DEN_TS(array)
+
+  ds = C2DEN_TS(data)
   train_loader = DataLoader(ds, batch_size=batch_size)
   
   encoded_data = c2den_encode_data(c2den, train_loader)
@@ -224,7 +224,6 @@ def c2den_encode_decode_data(c2den, data_loader):
   for data in data_loader:
       inputs, _ = data
       inputs = inputs.float()
-      print(inputs.shape)
       encoded = c2den.encoder(inputs)
       decoded = c2den.decoder(encoded)
       encoded_decoded_data.append(decoded.detach().numpy())

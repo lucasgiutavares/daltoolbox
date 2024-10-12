@@ -74,8 +74,8 @@ dim(train)
 dim(test)
 
 # Transform
-auto <- cae2den_encode_decode(input_size, encoding_size=4, num_epochs=50)
-ae_type <- 'decoder'
+auto <- cae2den_encode(input_size, encoding_size=4, num_epochs=20)
+ae_type <- 'encoder'
 
 return_loss <- FALSE
 if (return_loss){
