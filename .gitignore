@@ -3,4 +3,7 @@
 .RData
 .Ruserdata
 .ipynb_checkpoints
+<<<<<<< HEAD
+=======
 develop/data/image_datasets/
+>>>>>>> 8fefea83 (Conv2d Autoencoder Implementation)
