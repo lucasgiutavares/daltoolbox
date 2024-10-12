@@ -138,9 +138,10 @@ def vae_fit(vae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001
   val_loader = DataLoader(ds_val, batch_size=batch_size)
   
   if return_loss:
-    vae, train_loss, val_loss = vae_train(vae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+    vae, train_loss, val_loss = vae_train(vae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = learning_rate, return_loss=return_loss)
     return vae, train_loss, val_loss
   else:
+    vae = vae_train(vae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = learning_rate, return_loss=return_loss)
     return vae
 
 
