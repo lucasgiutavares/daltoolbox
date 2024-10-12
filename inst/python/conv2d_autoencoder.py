@@ -123,6 +123,7 @@ def cae2d_fit(cae2d, data, batch_size = 20, num_epochs = 50, learning_rate = 0.0
     cae2d, train_loss, val_loss = cae2d_train(cae2d, train_loader, val_loader, num_epochs = num_epochs, learning_rate = learning_rate, return_loss=return_loss)
     return cae2d, train_loss, val_loss
   else:
+    cae2d = cae2d_train(cae2d, train_loader, val_loader, num_epochs = num_epochs, learning_rate = learning_rate, return_loss=return_loss)
     return cae2d
 
 
