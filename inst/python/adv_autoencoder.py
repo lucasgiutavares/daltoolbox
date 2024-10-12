@@ -262,6 +262,7 @@ def aae_fit(aae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001
     aae, train_loss, val_loss = aae_train(aae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
     return aae, train_loss, val_loss
   else:
+    aae = aae_train(aae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
     return aae
 
 def adv_encode_data(aae, data_loader):
@@ -279,7 +280,6 @@ def adv_encode_data(aae, data_loader):
   return encoded_data
 
 def adv_encode(aae, data, batch_size = 32):
-  print('test')
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
