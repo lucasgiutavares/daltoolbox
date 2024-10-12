@@ -7,6 +7,7 @@
 cae2d_encode_decode(
   input_size,
   encoding_size,
+  mean_var_size = 6,
   batch_size = 32,
   num_epochs = 50,
   learning_rate = 0.001
