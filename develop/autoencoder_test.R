@@ -42,10 +42,10 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- cae_encode(length(ts), encoding_size=6, num_epochs=50)
-ae_type <- 'encoder'
+auto <- cae_encode_decode(length(ts), encoding_size=6, num_epochs=50)
+ae_type <- 'decoder'
 
-return_loss <- TRUE
+return_loss <- FALSE
 if (return_loss){
   fit_output <- fit(auto, train, return_loss=return_loss)
   auto <- fit_output[['obj']]
