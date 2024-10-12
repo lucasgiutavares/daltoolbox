@@ -45,7 +45,7 @@ features <- names(train)
 auto <- dae_encode(length(ts), encoding_size=6, num_epochs=50)
 ae_type <- 'encoder'
 
-return_loss <- FALSE
+return_loss <- TRUE
 if (return_loss){
   fit_output <- fit(auto, train, return_loss=return_loss)
   auto <- fit_output[['obj']]
