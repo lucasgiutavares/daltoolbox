@@ -74,10 +74,10 @@ dim(train)
 dim(test)
 
 # Transform
-auto <- cae2d_encode_decode(input_size, encoding_size=4, num_epochs=100)
+auto <- cae2d_encode_decode(input_size, encoding_size=4, num_epochs=50)
 ae_type <- 'decoder'
 
-return_loss <- TRUE
+return_loss <- FALSE
 if (return_loss){
   fit_output <- fit(auto, train, return_loss=return_loss)
   auto <- fit_output[[1]]
@@ -95,25 +95,6 @@ if (return_loss){
     theme_classic()
 }else{
   auto <- fit(auto, train, return_loss=return_loss)
-}
-
-return_loss <- TRUE
-fit_output <- fit(auto, train, return_loss=return_loss)
-auto <- fit_output[[1]]
-
-train_loss <- unlist(fit_output[['loss']][[1]])
-val_loss <- unlist(fit_output[['loss']][[2]])
-
-fit_loss <- as.data.frame(cbind(train_loss, val_loss))
-fit_loss['epoch'] <- 1:nrow(fit_loss)
-
-
-if (return_loss){
-  ggplot(fit_loss, aes(x=epoch)) +
-    geom_line(aes(y=train_loss, colour='Train Loss')) +
-    geom_line(aes(y=val_loss, colour='Val Loss')) +
-    scale_color_manual(values=c('Blue','Orange')) +
-    theme_classic()
 }
 
 result <- transform(auto, train)
