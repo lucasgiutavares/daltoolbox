@@ -16,15 +16,15 @@ import pandas as pd
 class Q_net(nn.Module):
     def __init__(self, input_size, encoding_size):
         super(Q_net, self).__init__()
-        self.lin1 = nn.Linear(input_size, 30)
-        self.lin2 = nn.Linear(30, 30)
+        self.lin1 = nn.Linear(input_size, 60)
+        self.lin2 = nn.Linear(60, 60)
         # Gaussian code (z)
-        self.lin3gauss = nn.Linear(30, encoding_size)
+        self.lin3gauss = nn.Linear(60, encoding_size)
 
     def forward(self, x):
-        x = F.dropout(self.lin1(x), p=0.2, training=self.training)
+        x = F.dropout(self.lin1(x), p=0.4, training=self.training)
         x = F.relu(x)
-        x = F.dropout(self.lin2(x), p=0.2, training=self.training)
+        x = F.dropout(self.lin2(x), p=0.4, training=self.training)
         x = F.relu(x)
         xgauss = self.lin3gauss(x)
 
@@ -34,30 +34,30 @@ class Q_net(nn.Module):
 class P_net(nn.Module):
     def __init__(self, input_size, encoding_size):
         super(P_net, self).__init__()
-        self.lin1 = nn.Linear(encoding_size, 30)
-        self.lin2 = nn.Linear(30, 30)
-        self.lin3 = nn.Linear(30, input_size)
+        self.lin1 = nn.Linear(encoding_size, 60)
+        self.lin2 = nn.Linear(60, 60)
+        self.lin3 = nn.Linear(60, input_size)
 
     def forward(self, x):
         x = self.lin1(x)
-        x = F.dropout(x, p=0.2, training=self.training)
+        x = F.dropout(x, p=0.4, training=self.training)
         x = F.relu(x)
         x = self.lin2(x)
-        x = F.dropout(x, p=0.2, training=self.training)
+        x = F.dropout(x, p=0.4, training=self.training)
         x = self.lin3(x)
         return F.sigmoid(x)
 
 class D_net_gauss(nn.Module):
     def __init__(self, input_size, encoding_size):
         super(D_net_gauss, self).__init__()
-        self.lin1 = nn.Linear(encoding_size, 30)
-        self.lin2 = nn.Linear(30, 30)
-        self.lin3 = nn.Linear(30, 1)
+        self.lin1 = nn.Linear(encoding_size, 60)
+        self.lin2 = nn.Linear(60, 60)
+        self.lin3 = nn.Linear(60, 1)
 
     def forward(self, x):
-        x = F.dropout(self.lin1(x), p=0.2, training=self.training)
+        x = F.dropout(self.lin1(x), p=0.4, training=self.training)
         x = F.relu(x)
-        x = F.dropout(self.lin2(x), p=0.2, training=self.training)
+        x = F.dropout(self.lin2(x), p=0.4, training=self.training)
         x = F.relu(x)
 
         return F.sigmoid(self.lin3(x))
@@ -141,7 +141,9 @@ def aae_create(input_size, encoding_size):
 
 
 # Train the aae
-def aae_train(aae, train_loader, val_loader, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
+def aae_train(aae, train_loader, val_loader, num_epochs = 1000, learning_rate = 0.001, return_loss=False, verbose=False):
+  recon_criterion = nn.MSELoss()
+  
   TINY = 1e-15
   # Set the networks in train mode (apply dropout when needed)
   aae.Q.train()
@@ -171,7 +173,7 @@ def aae_train(aae, train_loader, val_loader, num_epochs = 1000, learning_rate = 
         #######################
         z_sample = aae.Q(train_input)
         X_sample = aae.P(z_sample)
-        recon_loss = F.binary_cross_entropy(X_sample + TINY, train_input + TINY)
+        recon_loss = recon_criterion(X_sample + TINY, train_input + TINY)
 
         recon_loss.backward()
         aae.decoder.step()
@@ -225,11 +227,12 @@ def aae_train(aae, train_loader, val_loader, num_epochs = 1000, learning_rate = 
         val_z = aae.Q(val_input)
         val_output = aae.P(val_z)
         
-        val_batch_loss = F.binary_cross_entropy(val_output + TINY, val_input + TINY)
+        val_batch_loss = recon_criterion(val_output + TINY, val_input + TINY)
         val_epoch_loss.append(val_batch_loss.item())
         train_epoch_loss.append(val_batch_loss.item())
-        
-    print('Epoch', epoch, 'done')
+    if (verbose):
+      print('Epoch', epoch, 'done')
+    
         
     train_loss.append(np.mean(train_epoch_loss))
     val_loss.append(np.mean(val_epoch_loss))
@@ -239,7 +242,7 @@ def aae_train(aae, train_loader, val_loader, num_epochs = 1000, learning_rate = 
   else:
     return aae
 
-def aae_fit(aae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
+def aae_fit(aae, data, batch_size = 350, num_epochs = 1000, learning_rate = 0.001, return_loss=False, verbose=False):
   
   batch_size = int(batch_size)
   num_epochs = int(num_epochs)
@@ -259,10 +262,10 @@ def aae_fit(aae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001
   val_loader = DataLoader(ds_val, batch_size=batch_size)
   
   if return_loss:
-    aae, train_loss, val_loss = aae_train(aae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+    aae, train_loss, val_loss = aae_train(aae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss, verbose=verbose)
     return aae, train_loss, val_loss
   else:
-    aae = aae_train(aae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+    aae = aae_train(aae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss, verbose=verbose)
     return aae
 
 def adv_encode_data(aae, data_loader):
@@ -312,14 +315,14 @@ def adv_encode_decode_data(aae, data_loader):
   return encoded_decoded_data
 
 
-def adv_encode_decode(aae, data, batch_size = 32):
+def adv_encode_decode(aae, data, batch_size = 350):
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
   ds = AAE_TS(array)
-  train_loader = DataLoader(ds, batch_size=batch_size)
+  pred_loader = DataLoader(ds, batch_size=batch_size)
   
-  encoded_decoded_data = adv_encode_decode_data(aae, train_loader)
+  encoded_decoded_data = adv_encode_decode_data(aae, pred_loader)
   
   return(encoded_decoded_data)
   

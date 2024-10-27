@@ -18,6 +18,10 @@ ts <- read.csv('/home/lucas/datasets/timeseries/eeg_eye_state/processed/eeg_eye_
 ts[,'X'] <- NULL
 ts[,'eyeDetection'] <- NULL
 
+selected_features <- c('F3', 'F4', 'AF3', 'AF4')
+
+ts <- ts[selected_features]
+
 # Remove Outliers
 outl <- outliers(alpha=1.5)
 outl <- fit(outl, ts)
@@ -42,8 +46,8 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- aae_encode_decode(length(ts), encoding_size=6, num_epochs=50)
-ae_type <- 'decoder'
+auto <- aae_encode(length(ts), encoding_size=2, num_epochs=200)
+ae_type <- 'encoder'
 
 return_loss <- TRUE
 if (return_loss){
@@ -133,6 +137,8 @@ if (ae_type == 'encoder'){
       plt
     }
   )
+  
+  print(paste('MSE test:', mean(unlist((test - result)^2))))
   
   ggarrange(
     plotlist=plotList,
