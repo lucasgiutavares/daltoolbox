@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 torch.set_grad_enabled(True)
+from random import sample
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd

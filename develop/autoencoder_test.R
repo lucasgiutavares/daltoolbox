@@ -138,6 +138,17 @@ if (ae_type == 'encoder'){
   )
   
   print(paste('MSE test:', mean(unlist((test - result)^2))))
+  result <- as.data.frame(result)
+  names(result) <- names(test)
+  r2 <- c()
+  for (col in names(test)){
+    r2_col <- cor(test[col], result[col])^2
+    r2 <- append(r2, r2_col)
+    print(paste('R2 test:', col, r2_col))
+  }
+  print(paste('R2 test mean:', mean(r2)))
+  
+  
   
   ggarrange(
     plotlist=plotList,
