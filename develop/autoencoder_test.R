@@ -42,8 +42,25 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
+<<<<<<< HEAD
 auto <- cae_encode_decode(length(ts), encoding_size=6, num_epochs=50)
 ae_type <- 'decoder'
+=======
+auto <- sae_encode(length(ts), encoding_size=1, num_epochs=50)
+ae_type <- 'encoder'
+
+return_loss <- TRUE
+fit_output <- fit(auto, train, return_loss=return_loss)
+auto <- fit_output[['obj']]
+#auto <- fit_output
+
+train_loss <- unlist(fit_output[['loss']][[1]])
+val_loss <- unlist(fit_output[['loss']][[2]])
+
+fit_loss <- as.data.frame(cbind(train_loss, val_loss))
+fit_loss['epoch'] <- 1:nrow(fit_loss)
+
+>>>>>>> parent of 4cd18956 (return_loss implementation)
 
 return_loss <- FALSE
 if (return_loss){
