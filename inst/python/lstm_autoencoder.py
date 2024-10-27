@@ -124,7 +124,7 @@ def lae_train(lae, train_loader, val_loader, num_epochs = 1000, learning_rate = 
   else:
     return lae
 
-def lae_fit(lae, data, batch_size = 200, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
+def lae_fit(lae, data, batch_size = 20, num_epochs = 1000, learning_rate = 0.001, return_loss=False):
   batch_size = int(batch_size)
   num_epochs = int(num_epochs)
   
@@ -163,7 +163,7 @@ def lae_encode_data(lae, data_loader):
 
   return encoded_data
 
-def lstm_encode(lae, data, batch_size = 32):
+def lstm_encode(lae, data, batch_size = 20):
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
@@ -190,7 +190,7 @@ def lae_encode_decode_data(lae, data_loader):
   return encoded_decoded_data
 
 
-def lstm_encode_decode(lae, data, batch_size = 32):
+def lstm_encode_decode(lae, data, batch_size = 20):
   array = data.to_numpy()
   array = array[:, :, np.newaxis]
   
