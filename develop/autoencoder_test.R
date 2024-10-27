@@ -42,14 +42,13 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- dae_encode(length(ts), encoding_size=6, num_epochs=50)
+auto <- lae_encode(length(ts), encoding_size=6, num_epochs=20)
 ae_type <- 'encoder'
 
 return_loss <- TRUE
 if (return_loss){
   fit_output <- fit(auto, train, return_loss=return_loss)
   auto <- fit_output[['obj']]
-  #auto <- fit_output
   
   train_loss <- unlist(fit_output[['loss']][[1]])
   val_loss <- unlist(fit_output[['loss']][[2]])
@@ -138,4 +137,6 @@ if (ae_type == 'encoder'){
     plotlist=plotList,
     align='v',
     ncol=1, nrow=length(features))
+  
+  print(paste('MSE test:', mean(unlist((test - result)^2))))
 }
