@@ -11,10 +11,11 @@
 #'#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
 #'@import reticulate
 #'@export
-vae_encode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 1000, learning_rate = 0.001) {
+vae_encode <- function(input_size, encoding_size, mean_var_size=6, batch_size = 32, num_epochs = 1000, learning_rate = 0.001) {
   obj <- dal_transform()
   obj$input_size <- input_size
   obj$encoding_size <- encoding_size
+  obj$mean_var_size <- mean_var_size
   obj$batch_size <- batch_size
   obj$num_epochs <- num_epochs
   obj$learning_rate <- learning_rate
@@ -29,7 +30,7 @@ fit.vae_encode <- function(obj, data, return_loss=FALSE, ...) {
     reticulate::source_python(system.file("python", "var_autoencoder.py", package = "daltoolbox"))
   
   if (is.null(obj$model))
-    obj$model <- vae_create(obj$input_size, obj$encoding_size)
+    obj$model <- vae_create(obj$input_size, obj$encoding_size, obj$mean_var_size)
   
   
   if (return_loss){

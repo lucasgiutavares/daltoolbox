@@ -7,12 +7,13 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
+from random import sample
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
 
-class DNS_AutoencoderTS(Dataset):
+class DNS_TS(Dataset):
     def __init__(self, num_samples, input_size):
         self.data = np.random.randn(num_samples, input_size)
 
@@ -65,48 +66,78 @@ def dns_ae_create(input_size, encoding_size):
     input_size = int(input_size)
     encoding_size = int(encoding_size)
     
-    autoencoder = DNS_AE(input_size, encoding_size)
-    autoencoder.float()
+    dae = DNS_AE(input_size, encoding_size)
+    dae.float()
     
-    return autoencoder
+    return dae
 
 
 #Train DNS AE
-def dns_ae_train(autoencoder, train_loader, num_epochs = 1000, learning_rate = 0.001, noise_factor=0.3):
+def dns_ae_train(dae, train_loader, val_loader, num_epochs = 1000, learning_rate = 0.001, noise_factor=0.3, return_loss=False):
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(autoencoder.parameters(), lr=learning_rate)
+    optimizer = optim.Adam(dae.parameters(), lr=learning_rate)
+    
+    train_loss = []
+    val_loss = []
     
     for epoch in range(num_epochs):
-        running_loss = 0.0
-        for data in train_loader:
-            inputs, _ = data
-            #Add noise to data before train
-            inputs = add_noise(inputs, noise_factor)
-            inputs = inputs.float()
-            inputs = inputs.view(inputs.size(0), -1)
+        train_epoch_loss = []
+        val_epoch_loss = []
+        # Train
+        dae.train()
+        for train_data in train_loader:
+            train_input, _ = train_data
+            train_input = train_input.float()
             optimizer.zero_grad()
-            outputs = autoencoder(inputs)
-            loss = criterion(outputs, inputs)
-            loss.backward()
+            train_output = dae(train_input)
+            train_batch_loss = criterion(train_output, train_input)
+            train_batch_loss.backward()
             optimizer.step()
-            running_loss += loss.item()
+            train_epoch_loss.append(train_batch_loss.item())
             
-    return autoencoder
+            
+        # Validation
+        dae.eval()
+        for val_data in val_loader:
+            val_input, _ = val_data
+            val_input = val_input.float()
+            val_output = dae(val_input)
+            val_batch_loss = criterion(val_output, val_input)
+            val_epoch_loss.append(val_batch_loss.item())
+            
+        train_loss.append(np.mean(train_epoch_loss))
+        val_loss.append(np.mean(val_epoch_loss))
+  
+    if return_loss:
+      return dae, train_loss, val_loss
+    else:
+      return dae
 
 
-def dns_ae_fit(autoencoder, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, noise_factor=0.3):
+def dns_ae_fit(dae, data, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, noise_factor=0.3, return_loss=False):
     batch_size = int(batch_size)
     num_epochs = int(num_epochs)
     
     array = data.to_numpy()
-    array = array[:, :, np.newaxis]
+    array = array[:, :]
     
-    ds = DNS_AutoencoderTS(array)
-    train_loader = DataLoader(ds, batch_size=batch_size)
+    val_sample = sample(range(1, data.shape[0], 1), k=int(data.shape[0]*0.3))
+    train_sample = [v for v in range(1, data.shape[0], 1) if v not in val_sample]
     
-    autoencoder = dns_ae_train(autoencoder, train_loader, num_epochs = num_epochs, learning_rate = learning_rate, noise_factor = noise_factor)
+    train_data = array[train_sample, :]
+    val_data = array[val_sample, :]
     
-    return autoencoder
+    ds_train = DNS_TS(train_data)
+    ds_val = DNS_TS(val_data)
+    train_loader = DataLoader(ds_train, batch_size=batch_size)
+    val_loader = DataLoader(ds_val, batch_size=batch_size)
+    
+    if return_loss:
+      dae, train_loss, val_loss = dns_ae_train(dae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+      return dae, train_loss, val_loss
+    else:
+      dae = dns_ae_train(dae, train_loader, val_loader, num_epochs = num_epochs, learning_rate = 0.001, return_loss=return_loss)
+      return dae
 
 
 def dns_encode_data(autoencoder, data_loader):
@@ -128,9 +159,9 @@ def dns_encode_data(autoencoder, data_loader):
 
 def dns_encode(autoencoder, data, batch_size = 32):
     array = data.to_numpy()
-    array = array[:, :, np.newaxis]
+    array = array[:, :]
     
-    ds = DNS_AutoencoderTS(array)
+    ds = DNS_TS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
     encoded_data = dns_encode_data(autoencoder, train_loader)
@@ -158,9 +189,9 @@ def dns_encode_decode_data(autoencoder, data_loader):
 
 def dns_encode_decode(autoencoder, data, batch_size = 32):
     array = data.to_numpy()
-    array = array[:, :, np.newaxis]
+    array = array[:, :]
     
-    ds = DNS_AutoencoderTS(array)
+    ds = DNS_TS(array)
     train_loader = DataLoader(ds, batch_size=batch_size)
     
     encoded_decoded_data = dns_encode_decode_data(autoencoder, train_loader)

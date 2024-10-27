@@ -7,6 +7,7 @@
 vae_encode(
   input_size,
   encoding_size,
+  mean_var_size = 6,
   batch_size = 32,
   num_epochs = 1000,
   learning_rate = 0.001

@@ -7,11 +7,11 @@
 #'@param num_epochs number of epochs for training
 #'@param learning_rate learning rate
 #'@param noise_factor level of noise to be added to the data
-#'@return a `dns_encode_decode` object.
+#'@return a `dae_encode_decode` object.
 #'@examples
 #'#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
 #'@import reticulate
-dns_encode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, noise_factor=0.3) {
+dae_encode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 1000, learning_rate = 0.001, noise_factor=0.3) {
   obj <- dal_transform()
   obj$input_size <- input_size
   obj$encoding_size <- encoding_size
@@ -19,26 +19,32 @@ dns_encode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 
   obj$num_epochs <- num_epochs
   obj$learning_rate <- learning_rate
   obj$noise_factor <- noise_factor
-  class(obj) <- append("dns_encode", class(obj))
+  class(obj) <- append("dae_encode", class(obj))
   
   return(obj)
 }
 
 #'@export
-fit.dns_encode <- function(obj, data, ...) {
+fit.dae_encode <- function(obj, data, return_loss=FALSE, ...) {
   if (!exists("dns_ae_create"))
     reticulate::source_python(system.file("python", "dns_autoencoder.py", package = "daltoolbox"))
   
   if (is.null(obj$model))
     obj$model <- dns_ae_create(obj$input_size, obj$encoding_size)
   
-  obj$model <- dns_ae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, noise_factor = obj$noise_factor)
-  
-  return(obj)
+  if (return_loss){
+    fit_output <- dns_ae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
+    obj$model <- fit_output[[1]]
+    
+    return(list(obj=obj, loss=fit_output[-1]))
+  }else{
+    obj$model <- dns_ae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
+    return(obj) 
+  }
 }
 
 #'@export
-transform.dns_encode <- function(obj, data, ...) {
+transform.dae_encode <- function(obj, data, ...) {
   if (!exists("dns_ae_create"))
     reticulate::source_python(system.file("python", "dns_autoencoder.py", package = "daltoolbox"))
   
