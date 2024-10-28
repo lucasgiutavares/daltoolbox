@@ -24,7 +24,7 @@ aae_encode_decode <- function(input_size, encoding_size, batch_size = 32, num_ep
 }
 
 #'@export
-fit.aae_encode_decode <- function(obj, data, return_loss=FALSE, ...){
+fit.aae_encode_decode <- function(obj, data, return_loss=FALSE, verbose=FALSE, ...){
   if (!exists("aae_create"))
     reticulate::source_python(system.file("python", "adv_autoencoder.py", package = "daltoolbox"))
 
@@ -32,12 +32,12 @@ fit.aae_encode_decode <- function(obj, data, return_loss=FALSE, ...){
     obj$model <- aae_create(obj$input_size, obj$encoding_size)
 
   if (return_loss){
-    fit_output <- aae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
+    fit_output <- aae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss, verbose=verbose)
     obj$model <- fit_output[[1]]
     
     return(list(obj=obj, loss=fit_output[-1]))
   }else{
-    obj$model <- aae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss)
+    obj$model <- aae_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate, return_loss=return_loss, verbose=verbose)
     return(obj) 
   }
 }
