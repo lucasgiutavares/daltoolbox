@@ -42,8 +42,9 @@ test <- as.data.frame(samp$test)
 features <- names(train)
 
 # Create Autoencoder
-auto <- autoenc_encode_decode(length(ts), encoding_size=4, num_epochs=50)
-ae_type <- 'decoder'
+
+auto <- sae_encode(length(ts), encoding_size=3, num_epochs=50)
+ae_type <- 'encoder'
 
 return_loss <- FALSE
 if (return_loss){
