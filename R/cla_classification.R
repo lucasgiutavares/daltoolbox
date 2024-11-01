@@ -1,8 +1,8 @@
 #'@title classification
-#'@description Ancestor class for classification problems
+#'@description Ancestor class for classification problems using MLmetrics nnet
 #'@param attribute attribute target to model building
-#'@param slevels - possible values for the target classification
-#'@return classification object
+#'@param slevels possible values for the target classification
+#'@return returns a classification object
 #'@examples
 #'#See ?cla_dtree for a classification example using a decision tree
 #'@export

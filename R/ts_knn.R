@@ -1,10 +1,10 @@
-#'@title knn time series prediction
+#'@title KNN time series prediction
 #'@description Creates a prediction object that
-#' uses the K-Nearest Neighbors (knn) method for time series regression
+#' uses the K-Nearest Neighbors (KNN) method for time series regression
 #'@param preprocess normalization
 #'@param input_size input size for machine learning model
 #'@param k number of k neighbors
-#'@return a `ts_knn` object.
+#'@return returns a `ts_knn` object.
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 10)

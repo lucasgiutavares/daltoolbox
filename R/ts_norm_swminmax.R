@@ -1,7 +1,7 @@
 #'@title Time Series Sliding Window Min-Max
-#'@description It takes as parameter the variable remove_outliers. The ts_norm_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
+#'@description The ts_norm_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
-#'@return a `ts_norm_swminmax` object.
+#'@return returns a `ts_norm_swminmax` object.
 #'@examples
 #'# time series to normalize
 #'data(sin_data)

@@ -1,7 +1,7 @@
 #'@title TSReg
 #'@description Time Series Regression directly from time series
 #'Ancestral class for non-sliding windows implementation.
-#'@return A `ts_reg` object
+#'@return returns `ts_reg` object
 #'@examples
 #'#See ?ts_arima for an example using Auto-regressive Integrated Moving Average
 #'@export
@@ -24,24 +24,24 @@ predict.ts_reg <- function(object, x, ...) {
   return(x[,ncol(x)])
 }
 
-#'@title do fit for time series
+#'@title Fit Time Series Model
 #'@description The actual time series model fitting.
 #'This method should be override by descendants.
-#'@param obj object
-#'@param x input variable
-#'@param y output variable
-#'@return fitted object
+#'@param obj an object representing the model or algorithm to be fitted
+#'@param x a matrix or data.frame containing the input features for training the model
+#'@param y a vector or matrix containing the output values to be predicted by the model
+#'@return returns a fitted object
 #'@export
 do_fit <- function(obj, x, y = NULL) {
   UseMethod("do_fit")
 }
 
-#'@title do predict for time series
+#'@title Predict Time Series Model
 #'@description The actual time series model prediction.
 #'This method should be override by descendants.
-#'@param obj object
-#'@param x input variable
-#'@return predicted values
+#'@param obj an object representing the fitted model or algorithm
+#'@param x a matrix or data.frame containing the input features for making predictions
+#'@return returns the predicted values
 #'@export
 do_predict <- function(obj, x) {
   UseMethod("do_predict")
@@ -51,7 +51,7 @@ do_predict <- function(obj, x) {
 #'@description Compute the mean squared error (MSE) between actual values and forecasts of a time series
 #'@param actual real observations
 #'@param prediction predicted observations
-#'@return A number, which is the calculated MSE
+#'@return returns a number, which is the calculated MSE
 #'@export
 MSE.ts <- function (actual, prediction) {
   if (length(actual) != length(prediction))
@@ -65,7 +65,7 @@ MSE.ts <- function (actual, prediction) {
 #'@description Compute the symmetric mean absolute percent error (sMAPE)
 #'@param actual real observations
 #'@param prediction predicted observations
-#'@return The sMAPE between the actual and prediction vectors
+#'@return returns the sMAPE between the actual and prediction vectors
 #'@export
 sMAPE.ts <- function (actual, prediction) {
   if (length(actual) != length(prediction))
@@ -84,7 +84,7 @@ sMAPE.ts <- function (actual, prediction) {
 #'@description Compute the R-squared (R2) between actual values and forecasts of a time series
 #'@param actual real observations
 #'@param prediction predicted observations
-#'@return A number, which is the calculated R2
+#'@return returns a number, which is the calculated R2
 #'@export
 R2.ts <- function (actual, prediction) {
   if (length(actual) != length(prediction))

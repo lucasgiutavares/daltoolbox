@@ -3,7 +3,7 @@
 #' uses the K-Nearest Neighbors (knn) method for regression
 #'@param attribute attribute target to model building
 #'@param k number of k neighbors
-#'@return A knn regression object
+#'@return returns a knn regression object
 #'@examples
 #'data(Boston)
 #'model <- reg_knn("medv", k=3)

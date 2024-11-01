@@ -6,7 +6,7 @@
 #'@param ts time series.
 #'@param test_size integer: size of test data (default = 1).
 #'@param offset integer: starting point (default = 0).
-#'@return A list with the two samples
+#'@return returns a list with the two samples
 #'@examples
 #'#setting up a ts_data
 #'data(sin_data)

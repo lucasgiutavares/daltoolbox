@@ -1,7 +1,7 @@
 #'@title Smoothing by interval
 #'@description The "smoothing by interval" function is used to apply a smoothing technique to a vector or time series data using a moving window approach.
 #'@param n number of bins
-#'@return obj
+#'@return returns an object of class `smoothing_inter`
 #'@examples
 #'data(iris)
 #'obj <- smoothing_inter(n = 2)

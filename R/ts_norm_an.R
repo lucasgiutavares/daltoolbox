@@ -3,7 +3,7 @@
 #' changes in the statistical properties of the data over time.
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
 #'@param nw integer: window size.
-#'@return a `ts_norm_an` object.
+#'@return returns a `ts_norm_an` object.
 #'@examples
 #'# time series to normalize
 #'data(sin_data)

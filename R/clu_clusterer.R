@@ -1,6 +1,6 @@
 #'@title Clusterer
 #'@description Ancestor class for clustering problems
-#'@return a `clusterer` object
+#'@return returns a `clusterer` object
 #'@examples
 #'#See ?cluster_kmeans for an example of transformation
 #'@export
@@ -19,10 +19,10 @@ action.clusterer <- function(obj, ...) {
 }
 
 #'@title Cluster
-#'@description Defines a cluster method.
-#'@param obj a `clusterer` object.
-#'@param ... optional arguments.
-#'@return clustered data.
+#'@description Defines a cluster method
+#'@param obj a `clusterer` object
+#'@param ... optional arguments
+#'@return clustered data
 #'@examples
 #'#See ?cluster_kmeans for an example of transformation
 #'@export

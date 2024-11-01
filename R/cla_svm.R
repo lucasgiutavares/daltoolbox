@@ -1,13 +1,13 @@
 #'@title SVM for classification
 #'@description Creates a classification object that
 #' uses the Support Vector Machine (SVM) method for classification
-#' It wraps the e1071 library.
+#' It wraps the e1071 and svm library.
 #'@param attribute attribute target to model building
 #'@param slevels possible values for the target classification
 #'@param epsilon parameter that controls the width of the margin around the separating hyperplane
 #'@param cost parameter that controls the trade-off between having a wide margin and correctly classifying training data points
 #'@param kernel the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
-#'@return A SVM classification object
+#'@return returns a SVM classification object
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)

@@ -7,7 +7,7 @@
 #'@param nhid ensemble size
 #'@param actfun defines the type to use, possible values: 'sig',
 #' 'radbas', 'tribas', 'relu', 'purelin' (default).
-#'@return a `ts_elm` object.
+#'@return returns a `ts_elm` object.
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 10)

@@ -1,7 +1,7 @@
 #'@title Smoothing by Freq
 #'@description The 'smoothing_freq' function is used to smooth a given time series data by aggregating observations within a fixed frequency.
 #'@param n number of bins
-#'@return obj
+#'@return returns an object of class `smoothing_freq`
 #'@examples
 #'data(iris)
 #'obj <- smoothing_freq(n = 2)

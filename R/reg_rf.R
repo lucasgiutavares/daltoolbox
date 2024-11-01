@@ -6,7 +6,7 @@
 #'@param nodesize node size
 #'@param ntree number of trees
 #'@param mtry number of attributes to build tree
-#'@return obj
+#'@return returns an object of class `reg_rf`obj
 #'@examples
 #'data(Boston)
 #'model <- reg_rf("medv", ntree=10)

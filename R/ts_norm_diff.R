@@ -1,8 +1,8 @@
 #ts_norm_diff
 #'@title Time Series Diff
-#'@description It receives as parameter the variable remove_outliters. This function calculates the difference between the values of a time series
+#'@description This function calculates the difference between the values of a time series.
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
-#'@return a `ts_norm_diff` object.
+#'@return returns a `ts_norm_diff` object.
 #'@examples
 #'# time series to normalize
 #'data(sin_data)

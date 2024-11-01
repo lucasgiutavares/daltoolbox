@@ -7,7 +7,7 @@
 #'@param nodesize node size
 #'@param ntree number of trees
 #'@param mtry number of attributes to build tree
-#'@return a `ts_rf` object.
+#'@return returns a `ts_rf` object.
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 10)

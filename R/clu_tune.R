@@ -2,9 +2,10 @@
 # version 2.1
 
 #'@title Clustering Tune
-#'@description Clustering Tune
+#'@description Creates an object for tuning clustering models.
+#'This object can be used to fit and optimize clustering algorithms by specifying hyperparameter ranges
 #'@param base_model base model for tuning
-#'@return a `clu_tune` object.
+#'@return returns a `clu_tune` object.
 #'@examples
 #'data(iris)
 #'

@@ -7,7 +7,7 @@
 #'@param size number of nodes that will be used in the hidden layer
 #'@param decay how quickly it decreases in gradient descent
 #'@param maxit maximum iterations
-#'@return a classification object
+#'@return returns a classification object
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)

@@ -7,7 +7,7 @@
 #'@param nodesize node size
 #'@param ntree number of trees
 #'@param mtry number of attributes to build tree
-#'@return obj
+#'@return returns a classification object
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)
