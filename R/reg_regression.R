@@ -1,7 +1,8 @@
 #'@title Regression
-#'@description Ancestor class for regression problems
+#'@description Ancestor class for regression problems.
+#'This ancestor class is used to define and manage the target attribute for regression tasks.
 #'@param attribute attribute target to model building
-#'@return regression object
+#'@return returns a regression object
 #'@examples
 #'#See ?reg_dtree for a regression example using a decision tree
 #'@export

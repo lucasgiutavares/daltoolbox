@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_adjust.R
 \name{adjust_matrix}
 \alias{adjust_matrix}
-\title{adjust to matrix}
+\title{Adjust to matrix}
 \usage{
 adjust_matrix(data)
 }
@@ -10,10 +10,10 @@ adjust_matrix(data)
 \item{data}{dataset}
 }
 \value{
-an adjusted matrix
+returns an adjusted matrix
 }
 \description{
-dataset data is adjusted to a matrix
+Converts a dataset to a matrix format if it is not already in that format
 }
 \examples{
 data(iris)

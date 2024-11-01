@@ -4,7 +4,7 @@
 #'The class remove outliers for numeric attributes.
 #'Users can set alpha to 3 to remove extreme values.
 #'@param alpha boxplot outlier threshold (default 1.5, but can be 3.0 to remove extreme values)
-#'@return An outlier object
+#'@return returns an outlier object
 #'@examples
 #'# code for outlier removal
 #' out_obj <- outliers() # class for outlier analysis

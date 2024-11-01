@@ -12,10 +12,11 @@ dal_tune(base_model, folds = 10)
 \item{folds}{number of folds for cross-validation}
 }
 \value{
-a \code{dal_tune} object.
+returns a \code{dal_tune} object
 }
 \description{
-Ancestor class for hyper parameter optimization
+Creates an ancestor class for hyperparameter optimization,
+allowing the tuning of a base model using cross-validation.
 }
 \examples{
 #See ?cla_tune for classification tuning

@@ -1,7 +1,7 @@
 #'@title DAL Transform
 #'@description A transformation method applied to a dataset.
 #' If needed, the fit can be called to adjust the transform.
-#'@return a `dal_transform` object.
+#'@return returns a `dal_transform` object.
 #'@examples
 #'#See ?minmax for an example of transformation
 #'@export
@@ -15,7 +15,7 @@ dal_transform <- function() {
 #'@description Defines a transformation method.
 #'@param obj a `dal_transform` object.
 #'@param ... optional arguments.
-#'@return transformed data.
+#'@return returns a transformed data.
 #'@examples
 #'#See ?minmax for an example of transformation
 #'@export
@@ -35,7 +35,7 @@ transform.default <- function(obj, ...) {
 #'@description A default function that defines the action to proxy transform method
 #'@param obj object
 #'@param ... optional arguments
-#'@return Transformed data
+#'@return returns a transformed data
 #'@examples
 #'#See ?minmax for an example of transformation
 #'@export

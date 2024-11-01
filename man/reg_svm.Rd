@@ -16,12 +16,12 @@ reg_svm(attribute, epsilon = 0.1, cost = 10, kernel = "radial")
 \item{kernel}{the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)}
 }
 \value{
-A SVM regression object
+returns a SVM regression object
 }
 \description{
 Creates a regression object that
 uses the Support Vector Machine (SVM) method for regression
-It wraps the e1071 library.
+It wraps the e1071 and svm library.
 }
 \examples{
 data(Boston)

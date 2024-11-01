@@ -2,19 +2,19 @@
 % Please edit documentation in R/ts_reg.R
 \name{do_fit}
 \alias{do_fit}
-\title{do fit for time series}
+\title{Fit Time Series Model}
 \usage{
 do_fit(obj, x, y = NULL)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{an object representing the model or algorithm to be fitted}
 
-\item{x}{input variable}
+\item{x}{a matrix or data.frame containing the input features for training the model}
 
-\item{y}{output variable}
+\item{y}{a vector or matrix containing the output values to be predicted by the model}
 }
 \value{
-fitted object
+returns a fitted object
 }
 \description{
 The actual time series model fitting.

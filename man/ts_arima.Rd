@@ -7,7 +7,7 @@
 ts_arima()
 }
 \value{
-a \code{ts_arima} object.
+returns a \code{ts_arima} object.
 }
 \description{
 Creates a time series prediction object that

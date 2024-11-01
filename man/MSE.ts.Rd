@@ -12,7 +12,7 @@ MSE.ts(actual, prediction)
 \item{prediction}{predicted observations}
 }
 \value{
-A number, which is the calculated MSE
+returns a number, which is the calculated MSE
 }
 \description{
 Compute the mean squared error (MSE) between actual values and forecasts of a time series

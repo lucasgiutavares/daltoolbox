@@ -7,10 +7,10 @@
 cluster_kmeans(k = 1)
 }
 \arguments{
-\item{k}{The number of clusters to form.}
+\item{k}{the number of clusters to form.}
 }
 \value{
-A k-means object.
+returns a k-means object.
 }
 \description{
 Creates a clusterer object that

@@ -3,7 +3,7 @@
 #' uses the Decision Tree method for regression
 #' It wraps the tree library.
 #'@param attribute attribute target to model building.
-#'@return A decision tree regression object
+#'@return returns a decision tree regression object
 #'@examples
 #'data(Boston)
 #'model <- reg_dtree("medv")

@@ -1,8 +1,8 @@
 #'@title Majority Classification
 #'@description This function creates a classification object that uses the majority vote strategy to predict the target attribute. Given a target attribute, the function counts the number of occurrences of each value in the dataset and selects the one that appears most often.
 #'@param attribute attribute target to model building.
-#'@param slevels Possible values for the target classification.
-#'@return Returns a classification object.
+#'@param slevels possible values for the target classification.
+#'@return returns a classification object.
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)

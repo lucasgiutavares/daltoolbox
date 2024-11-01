@@ -5,7 +5,7 @@
 #' There are alternative methods to establish the smoothing:
 #' equal interval, equal frequency, and clustering.
 #'@param n number of bins
-#'@return obj
+#'@return returns an object of class `smoothing`
 #'@examples
 #'data(iris)
 #'obj <- smoothing_inter(n = 2)

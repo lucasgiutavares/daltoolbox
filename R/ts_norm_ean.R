@@ -1,8 +1,9 @@
 #'@title Time Series Adaptive Normalization (Exponential Moving Average - EMA)
-#'@description It takes 2 parameters: remove_outliers and nw
+#'@description Creates a normalization object for time series data using an Exponential Moving Average (EMA) method.
+#'This normalization approach adapts to changes in the time series and optionally removes outliers.
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
 #'@param nw windows size
-#'@return a `ts_norm_ean` object.
+#'@return returns a `ts_norm_ean` object.
 #'@examples
 #'# time series to normalize
 #'data(sin_data)

@@ -12,7 +12,7 @@ action(obj, ...)
 \item{...}{optional arguments.}
 }
 \value{
-The result of an action of the model applied in provided data
+returns the result of an action of the model applied in provided data
 }
 \description{
 Executes the action of model applied in provided data

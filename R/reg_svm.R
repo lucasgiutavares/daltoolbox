@@ -1,12 +1,12 @@
 #'@title SVM for regression
 #'@description Creates a regression object that
 #' uses the Support Vector Machine (SVM) method for regression
-#' It wraps the e1071 library.
+#' It wraps the e1071 and svm library.
 #'@param attribute attribute target to model building
 #'@param epsilon parameter that controls the width of the margin around the separating hyperplane
 #'@param cost parameter that controls the trade-off between having a wide margin and correctly classifying training data points
 #'@param kernel the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
-#'@return A SVM regression object
+#'@return returns a SVM regression object
 #'@examples
 #'data(Boston)
 #'model <- reg_svm("medv", epsilon=0.2,cost=40.000)

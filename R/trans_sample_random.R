@@ -1,7 +1,7 @@
 #'@title Sample Random
 #'@description The sample_random function in R is used to
 #' generate a random sample of specified size from a given data set.
-#'@return obj
+#'@return returns an object of class `sample_random
 #'@examples
 #'#using random sampling
 #'sample <- sample_random()
@@ -51,10 +51,28 @@ k_fold.sample_random <- function(obj, data, k) {
 }
 
 #'@title k-fold training and test partition object
-#'@description k-fold training and test partition object
+#'@description Splits a dataset into training and test sets based on k-fold cross-validation.
+#'The function takes a list of data partitions (folds) and a specified fold index k.
+#'It returns the data corresponding to the k-th fold as the test set, and combines all other folds to form the training set.
 #'@param folds data partitioned into folds
 #'@param k k-fold for test set, all reminder for training set
-#'@return train and test folds
+#'@return returns a list with two elements:
+#' \itemize{
+#'   \item train: A data frame containing the combined data from all folds except the k-th fold, used as the training set.
+#'   \item test: A data frame corresponding to the k-th fold, used as the test set.
+#' }
+#'@examples
+#'# Create k-fold partitions of a dataset (e.g., iris)
+#'folds <- k_fold(sample_random(), iris, k = 5)
+#'
+#'# Use the first fold as the test set and combine the remaining folds for the training set
+#'train_test_split <- train_test_from_folds(folds, k = 1)
+#'
+#'# Display the training set
+#'head(train_test_split$train)
+#'
+#'# Display the test set
+#'head(train_test_split$test)
 #'@export
 train_test_from_folds <- function(folds, k) {
   test <- folds[[k]]

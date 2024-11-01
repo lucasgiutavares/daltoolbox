@@ -2,12 +2,12 @@
 % Please edit documentation in R/ts_data.R
 \name{[.ts_data}
 \alias{[.ts_data}
-\title{Extract a subset of a time series stored in an object}
+\title{Subset Extraction for Time Series Data}
 \usage{
 \method{[}{ts_data}(x, i, j, ...)
 }
 \arguments{
-\item{x}{input variable}
+\item{x}{\code{ts_data} object}
 
 \item{i}{row i}
 
@@ -16,10 +16,11 @@
 \item{...}{optional arguments}
 }
 \value{
-A new ts_data object
+returns a new ts_data object
 }
 \description{
-Receives as parameters the variables x, i, j ...
+Extracts a subset of a time series object based on specified rows and columns.
+The function allows for flexible indexing and subsetting of time series data.
 }
 \examples{
 data(sin_data)

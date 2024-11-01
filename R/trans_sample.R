@@ -8,7 +8,7 @@
 #'
 #' Data sample provides both training and testing partitioning (train_test) and
 #' k-fold partitioning (k_fold) of data.
-#'@return obj
+#'@return returns an object of class `data_sample`
 #'@examples
 #'#using random sampling
 #'sample <- sample_random()
@@ -33,13 +33,17 @@ data_sample <- function() {
   return(obj)
 }
 
-#'@title training and test
-#'@description training and test partition of a dataset using a sampling method
-#'@param obj object
-#'@param data dataset
-#'@param perc percentage for training
-#'@param ... optional arguments.
-#'@return train and test sets
+#'@title Train-Test Partition
+#'@description Partitions a dataset into training and test sets using a specified sampling method
+#'@param obj an object of a class that supports the `train_test` method
+#'@param data dataset to be partitioned
+#'@param perc a numeric value between 0 and 1 specifying the proportion of data to be used for training
+#'@param ... additional optional arguments passed to specific methods.
+#'@return returns an list with two elements:
+#' \itemize{
+#'   \item train: A data frame containing the training set
+#'   \item test: A data frame containing the test set
+#' }
 #'@examples
 #'#using random sampling
 #'sample <- sample_random()
@@ -57,12 +61,12 @@ train_test.default <- function(obj, data, perc=0.8, ...) {
   return(list())
 }
 
-#'@title k-fold sampling
+#'@title K-fold sampling
 #'@description k-fold partition of a dataset using a sampling method
-#'@param obj object
-#'@param data dataset
+#'@param obj an object representing the sampling method
+#'@param data dataset to be partitioned
 #'@param k number of folds
-#'@return k folds
+#'@return returns a list of `k` data frames
 #'@examples
 #'#using random sampling
 #'sample <- sample_random()

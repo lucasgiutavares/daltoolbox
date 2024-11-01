@@ -7,7 +7,7 @@
 sample_random()
 }
 \value{
-obj
+returns an object of class `sample_random
 }
 \description{
 The sample_random function in R is used to

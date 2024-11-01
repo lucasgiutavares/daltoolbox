@@ -2,11 +2,11 @@
 # version 2.1
 
 #'@title Classification Tune
-#'@description Classification Tune
+#'@description This function performs a grid search or random search over specified hyperparameter values to optimize a base classification model
 #'@param base_model base model for tuning
 #'@param folds number of folds for cross-validation
 #'@param metric metric used to optimize
-#'@return a `cla_tune` object.
+#'@return returns a `cla_tune` object
 #'@examples
 #'# preparing dataset for random sampling
 #'sr <- sample_random()
@@ -37,12 +37,12 @@ cla_tune <- function(base_model, folds=10, metric="accuracy") {
 
 
 #'@title tune hyperparameters of ml model
-#'@description tune hyperparameters of ml model for classification
-#'@param obj object
-#'@param data dataset
-#'@param ranges hyperparameters ranges
+#'@description Tunes the hyperparameters of a machine learning model for classification
+#'@param obj an object containing the model and tuning configuration
+#'@param data the dataset used for training and evaluation
+#'@param ranges a list of hyperparameter ranges to explore
 #'@param ... optional arguments
-#'@return fitted obj
+#'@return a fitted obj
 #'@importFrom stats predict
 #'@export
 fit.cla_tune <- function(obj, data, ranges, ...) {
@@ -113,10 +113,10 @@ fit.cla_tune <- function(obj, data, ranges, ...) {
 
 
 #'@title selection of hyperparameters
-#'@description selection of hyperparameters (maximizing classification metric)
-#'@param obj object
-#'@param hyperparameters hyperparameters dataset
-#'@return optimized key number of hyperparameters
+#'@description Selects the optimal hyperparameter by maximizing the average classification metric. It wraps dplyr library.
+#'@param obj an object representing the model or tuning process
+#'@param hyperparameters a dataframe with columns `key` (hyperparameter configuration) and `metric` (classification metric)
+#'@return returns a optimized key number of hyperparameters
 #'@importFrom dplyr filter summarise group_by
 #'@export
 select_hyper.cla_tune <- function(obj, hyperparameters) {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_knn.R
 \name{ts_knn}
 \alias{ts_knn}
-\title{knn time series prediction}
+\title{KNN time series prediction}
 \usage{
 ts_knn(preprocess = NA, input_size = NA, k = NA)
 }
@@ -14,11 +14,11 @@ ts_knn(preprocess = NA, input_size = NA, k = NA)
 \item{k}{number of k neighbors}
 }
 \value{
-a \code{ts_knn} object.
+returns a \code{ts_knn} object.
 }
 \description{
 Creates a prediction object that
-uses the K-Nearest Neighbors (knn) method for time series regression
+uses the K-Nearest Neighbors (KNN) method for time series regression
 }
 \examples{
 data(sin_data)

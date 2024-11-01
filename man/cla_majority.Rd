@@ -9,10 +9,10 @@ cla_majority(attribute, slevels)
 \arguments{
 \item{attribute}{attribute target to model building.}
 
-\item{slevels}{Possible values for the target classification.}
+\item{slevels}{possible values for the target classification.}
 }
 \value{
-Returns a classification object.
+returns a classification object.
 }
 \description{
 This function creates a classification object that uses the majority vote strategy to predict the target attribute. Given a target attribute, the function counts the number of occurrences of each value in the dataset and selects the one that appears most often.

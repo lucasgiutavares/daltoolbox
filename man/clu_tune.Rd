@@ -10,10 +10,11 @@ clu_tune(base_model)
 \item{base_model}{base model for tuning}
 }
 \value{
-a \code{clu_tune} object.
+returns a \code{clu_tune} object.
 }
 \description{
-Clustering Tune
+Creates an object for tuning clustering models.
+This object can be used to fit and optimize clustering algorithms by specifying hyperparameter ranges
 }
 \examples{
 data(iris)

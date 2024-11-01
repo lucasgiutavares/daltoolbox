@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_scatter}
 \alias{plot_scatter}
-\title{scatter graph}
+\title{Scatter graph}
 \usage{
 plot_scatter(data, label_x = "", label_y = "", colors = NULL)
 }
@@ -16,10 +16,10 @@ plot_scatter(data, label_x = "", label_y = "", colors = NULL)
 \item{colors}{color vector}
 }
 \value{
-ggplot graphic
+return a ggplot graphic
 }
 \description{
-scatter graph
+This function creates a scatter plot using ggplot2.
 }
 \examples{
 grf <- plot_scatter(iris |> dplyr::select(x = Sepal.Length,

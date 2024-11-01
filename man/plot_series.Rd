@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_series}
 \alias{plot_series}
-\title{plot series}
+\title{Plot series}
 \usage{
 plot_series(data, label_x = "", label_y = "", colors = NULL)
 }
@@ -16,10 +16,10 @@ plot_series(data, label_x = "", label_y = "", colors = NULL)
 \item{colors}{color vector}
 }
 \value{
-plot
+returns a ggplot graphic
 }
 \description{
-plot series
+This function creates a time series plot using ggplot2.
 }
 \examples{
 x <- seq(0, 10, 0.25)

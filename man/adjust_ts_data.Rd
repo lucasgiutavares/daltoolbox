@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_adjust.R
 \name{adjust_ts_data}
 \alias{adjust_ts_data}
-\title{adjust \code{ts_data}}
+\title{Adjust \code{ts_data}}
 \usage{
 adjust_ts_data(data)
 }
@@ -10,8 +10,8 @@ adjust_ts_data(data)
 \item{data}{dataset}
 }
 \value{
-an adjusted \code{ts_data}
+returns an adjusted \code{ts_data}
 }
 \description{
-dataset data is adjusted to a \code{ts_data}
+Converts a dataset to a \code{ts_data} object
 }

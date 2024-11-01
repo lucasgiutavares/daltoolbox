@@ -18,7 +18,7 @@ ts_mlp(preprocess = NA, input_size = NA, size = NA, decay = 0.01, maxit = 1000)
 \item{maxit}{maximum number of iterations}
 }
 \value{
-a \code{ts_mlp} object.
+returns a \code{ts_mlp} object.
 }
 \description{
 Creates a time series prediction object that

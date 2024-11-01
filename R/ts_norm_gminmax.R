@@ -1,7 +1,7 @@
 #'@title Time Series Global Min-Max
 #'@description Rescales data, so the minimum value is mapped to 0 and the maximum value is mapped to 1.
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
-#'@return a `ts_norm_gminmax` object.
+#'@return returns a `ts_norm_gminmax` object.
 #'@examples
 #'# time series to normalize
 #'data(sin_data)

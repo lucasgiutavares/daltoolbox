@@ -1,9 +1,11 @@
 #'@title Time Series Tune
-#'@description Time Series Tune
+#'@description Creates a `ts_tune` object for tuning hyperparameters of a time series model.
+#'This function sets up a tuning process for the specified base model by exploring different
+#'configurations of hyperparameters using cross-validation.
 #'@param input_size input size for machine learning model
 #'@param base_model base model for tuning
 #'@param folds number of folds for cross-validation
-#'@return a `ts_tune` object.
+#'@return returns a `ts_tune` object
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 10)
@@ -110,11 +112,13 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
   return(model)
 }
 
-#'@title selection of hyperparameters (time series)
-#'@description selection of hyperparameters (minimizing error)
-#'@param obj object
+#'@title Select Optimal Hyperparameters for Time Series Models
+#'@description Identifies the optimal hyperparameters by minimizing the error from a dataset of hyperparameters.
+#' The function selects the hyperparameter configuration that results in the lowest average error.
+#' It wraps the dplyr library.
+#'@param obj a `ts_tune` object containing the model and tuning settings
 #'@param hyperparameters hyperparameters dataset
-#'@return optimized key number of hyperparameters
+#'@return returns the optimized key number of hyperparameters
 #'@importFrom dplyr filter summarise group_by
 #'@export
 select_hyper.ts_tune <- function(obj, hyperparameters) {

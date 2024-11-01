@@ -10,10 +10,10 @@ ts_norm_swminmax(remove_outliers = TRUE)
 \item{remove_outliers}{logical: if TRUE (default) outliers will be removed.}
 }
 \value{
-a \code{ts_norm_swminmax} object.
+returns a \code{ts_norm_swminmax} object.
 }
 \description{
-It takes as parameter the variable remove_outliers. The ts_norm_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
+The ts_norm_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
 }
 \examples{
 # time series to normalize

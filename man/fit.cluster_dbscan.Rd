@@ -7,15 +7,17 @@
 \method{fit}{cluster_dbscan}(obj, data, ...)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{an object containing the DBSCAN model configuration, including \code{minPts} and optionally \code{eps}}
 
-\item{data}{dataset}
+\item{data}{the dataset to use for fitting the model}
 
 \item{...}{optional arguments}
 }
 \value{
-fitted obj
+returns a fitted obj with the \code{eps} parameter set
 }
 \description{
-fit dbscan model
+Fits a DBSCAN clustering model by setting the \code{eps} parameter.
+If \code{eps} is not provided, it is estimated based on the k-nearest neighbor distances.
+It wraps dbscan library
 }

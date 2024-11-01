@@ -1,9 +1,10 @@
-#'@title z-score normalization
+#'@title Z-score normalization
 #'@description Scale data using z-score normalization.
-#'zscore = (x - mean(x))/sd(x).
+#'
+#'\eqn{zscore = (x - mean(x))/sd(x)}
 #'@param nmean new mean for normalized data
 #'@param nsd new standard deviation for normalized data
-#'@return z-score transformation object
+#'@return returns the z-score transformation object
 #'@examples
 #'data(iris)
 #'head(iris)

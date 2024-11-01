@@ -2,8 +2,8 @@
 #'@description Creates a clusterer object that
 #' uses the Partition Around Medoids (PAM) method
 #' It wraps the cluster library.
-#'@param k The number of clusters to generate.
-#'@return A PAM object.
+#'@param k the number of clusters to generate.
+#'@return returns PAM object.
 #'@examples
 #'# setup clustering
 #'model <- cluster_pam(k = 3)

@@ -12,7 +12,7 @@ ts_regsw(preprocess = NA, input_size = NA)
 \item{input_size}{input size for machine learning model}
 }
 \value{
-A \code{ts_regsw} object
+returns a \code{ts_regsw} object
 }
 \description{
 Time Series Regression from Sliding Windows.

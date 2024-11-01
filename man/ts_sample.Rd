@@ -14,7 +14,7 @@ ts_sample(ts, test_size = 1, offset = 0)
 \item{offset}{integer: starting point (default = 0).}
 }
 \value{
-A list with the two samples
+returns a list with the two samples
 }
 \description{
 Separates the \code{ts_data} into training and test.

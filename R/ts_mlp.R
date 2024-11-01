@@ -7,7 +7,7 @@
 #'@param size number of neurons inside hidden layer
 #'@param decay decay parameter for MLP
 #'@param maxit maximum number of iterations
-#'@return a `ts_mlp` object.
+#'@return returns a `ts_mlp` object.
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 10)

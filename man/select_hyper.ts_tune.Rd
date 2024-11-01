@@ -2,18 +2,20 @@
 % Please edit documentation in R/ts_tune.R
 \name{select_hyper.ts_tune}
 \alias{select_hyper.ts_tune}
-\title{selection of hyperparameters (time series)}
+\title{Select Optimal Hyperparameters for Time Series Models}
 \usage{
 \method{select_hyper}{ts_tune}(obj, hyperparameters)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{a \code{ts_tune} object containing the model and tuning settings}
 
 \item{hyperparameters}{hyperparameters dataset}
 }
 \value{
-optimized key number of hyperparameters
+returns the optimized key number of hyperparameters
 }
 \description{
-selection of hyperparameters (minimizing error)
+Identifies the optimal hyperparameters by minimizing the error from a dataset of hyperparameters.
+The function selects the hyperparameter configuration that results in the lowest average error.
+It wraps the dplyr library.
 }

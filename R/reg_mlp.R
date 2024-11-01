@@ -6,7 +6,7 @@
 #'@param size number of neurons in hidden layers
 #'@param decay decay learning rate
 #'@param maxit number of maximum iterations for training
-#'@return obj
+#'@return returns a object of class `reg_mlp`
 #'@examples
 #'data(Boston)
 #'model <- reg_mlp("medv", size=5, decay=0.54)

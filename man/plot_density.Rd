@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_density}
 \alias{plot_density}
-\title{plot density}
+\title{Plot density}
 \usage{
 plot_density(
   data,
@@ -22,15 +22,16 @@ plot_density(
 
 \item{colors}{color vector}
 
-\item{bin}{bin width}
+\item{bin}{bin width for density estimation}
 
 \item{alpha}{level of transparency}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot density
+This function generates a density plot from a data frame containing numeric values using ggplot2.
+If the data frame has multiple columns, densities can be grouped and plotted.
 }
 \examples{
 grf <- plot_density(iris |> dplyr::select(Sepal.Width), colors="blue")

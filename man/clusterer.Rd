@@ -7,7 +7,7 @@
 clusterer()
 }
 \value{
-a \code{clusterer} object
+returns a \code{clusterer} object
 }
 \description{
 Ancestor class for clustering problems

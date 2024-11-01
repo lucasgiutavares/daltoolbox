@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_ts_pred}
 \alias{plot_ts_pred}
-\title{Plot a time series chart}
+\title{Plot a time series chart with predictions}
 \usage{
 plot_ts_pred(
   x = NULL,
@@ -36,10 +36,10 @@ plot_ts_pred(
 \item{color_prediction}{color for the predictions}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
+This function plots a time series chart with three lines: the original series, the adjusted series, and the predicted series using ggplot2.
 }
 \examples{
 data(sin_data)

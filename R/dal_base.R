@@ -1,6 +1,6 @@
 #'@title Class dal_base
 #'@description The dal_base class is an abstract class for all dal descendants classes. It provides both fit() and action() functions
-#'@return A dal_base object
+#'@return returns a dal_base object
 #'@examples trans <- dal_base()
 #'@export
 dal_base <- function() {
@@ -10,10 +10,10 @@ dal_base <- function() {
 }
 
 #'@title Fit
-#'@description Fits a model.
+#'@description Applies the `fit` method to a model object to train or configure it using the provided data and optional arguments
 #'@param obj object
 #'@param ... optional arguments.
-#'@return obj
+#'@return returns a object after fitting
 #'@examples
 #'data(iris)
 #'# an example is minmax normalization
@@ -34,7 +34,7 @@ fit.default <- function(obj, ...) {
 #'@description Executes the action of model applied in provided data
 #'@param obj object: a dal_base object to apply the transformation on the input dataset.
 #'@param ... optional arguments.
-#'@return The result of an action of the model applied in provided data
+#'@return returns the result of an action of the model applied in provided data
 #'@examples
 #'data(iris)
 #'# an example is minmax normalization
@@ -57,10 +57,9 @@ action.default <- function(obj, ...) {
 
 #'@title Assign parameters
 #'@description set_params function assigns all parameters to the attributes presented in the object.
-#'It returns the object with the parameters set.
 #'@param obj object of class dal_base
 #'@param params parameters to set obj
-#'@return obj with parameters set
+#'@return returns an object with parameters set
 #'@examples
 #'obj <- set_params(dal_base(), list(x = 0))
 #'@export
@@ -68,12 +67,11 @@ set_params <- function(obj, params) {
   UseMethod("set_params")
 }
 
-#'@title Assign parameters
-#'@description This function receives the obj and params variables as parameters.
-#' It returns the obj as it is.
+#'@title Default Assign parameters
+#'@description Default method for `set_params` which returns the object unchanged
 #'@param obj object
 #'@param params parameters
-#'@return obj
+#'@return returns the object unchanged
 #'@export
 set_params.default <- function(obj, params) {
   return(obj)

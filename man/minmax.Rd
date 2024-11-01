@@ -2,16 +2,17 @@
 % Please edit documentation in R/trans_norm_minmax.R
 \name{minmax}
 \alias{minmax}
-\title{min-max normalization}
+\title{Min-max normalization}
 \usage{
 minmax()
 }
 \value{
-obj
+returns an object of class \code{minmax}
 }
 \description{
 The minmax performs scales data between [0,1].
-minmax = (x-min(x))/(max(x)-min(x)).
+
+\eqn{minmax = (x-min(x))/(max(x)-min(x))}
 }
 \examples{
 data(iris)

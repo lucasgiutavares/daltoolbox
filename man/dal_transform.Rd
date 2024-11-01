@@ -7,7 +7,7 @@
 dal_transform()
 }
 \value{
-a \code{dal_transform} object.
+returns a \code{dal_transform} object.
 }
 \description{
 A transformation method applied to a dataset.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/trans_norm_zscore.R
 \name{zscore}
 \alias{zscore}
-\title{z-score normalization}
+\title{Z-score normalization}
 \usage{
 zscore(nmean = 0, nsd = 1)
 }
@@ -12,11 +12,12 @@ zscore(nmean = 0, nsd = 1)
 \item{nsd}{new standard deviation for normalized data}
 }
 \value{
-z-score transformation object
+returns the z-score transformation object
 }
 \description{
 Scale data using z-score normalization.
-zscore = (x - mean(x))/sd(x).
+
+\eqn{zscore = (x - mean(x))/sd(x)}
 }
 \examples{
 data(iris)

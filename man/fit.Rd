@@ -12,10 +12,10 @@ fit(obj, ...)
 \item{...}{optional arguments.}
 }
 \value{
-obj
+returns a object after fitting
 }
 \description{
-Fits a model.
+Applies the \code{fit} method to a model object to train or configure it using the provided data and optional arguments
 }
 \examples{
 data(iris)

@@ -12,7 +12,7 @@
 \item{...}{optional arguments}
 }
 \value{
-Transformed data
+returns a transformed data
 }
 \description{
 A default function that defines the action to proxy transform method

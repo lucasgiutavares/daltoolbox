@@ -7,13 +7,13 @@
 \method{select_hyper}{cla_tune}(obj, hyperparameters)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{an object representing the model or tuning process}
 
-\item{hyperparameters}{hyperparameters dataset}
+\item{hyperparameters}{a dataframe with columns \code{key} (hyperparameter configuration) and \code{metric} (classification metric)}
 }
 \value{
-optimized key number of hyperparameters
+returns a optimized key number of hyperparameters
 }
 \description{
-selection of hyperparameters (maximizing classification metric)
+Selects the optimal hyperparameter by maximizing the average classification metric. It wraps dplyr library.
 }

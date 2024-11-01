@@ -2,24 +2,28 @@
 % Please edit documentation in R/trans_sample.R
 \name{train_test}
 \alias{train_test}
-\title{training and test}
+\title{Train-Test Partition}
 \usage{
 train_test(obj, data, perc = 0.8, ...)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{an object of a class that supports the \code{train_test} method}
 
-\item{data}{dataset}
+\item{data}{dataset to be partitioned}
 
-\item{perc}{percentage for training}
+\item{perc}{a numeric value between 0 and 1 specifying the proportion of data to be used for training}
 
-\item{...}{optional arguments.}
+\item{...}{additional optional arguments passed to specific methods.}
 }
 \value{
-train and test sets
+returns an list with two elements:
+\itemize{
+\item train: A data frame containing the training set
+\item test: A data frame containing the test set
+}
 }
 \description{
-training and test partition of a dataset using a sampling method
+Partitions a dataset into training and test sets using a specified sampling method
 }
 \examples{
 #using random sampling

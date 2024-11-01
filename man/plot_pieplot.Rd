@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_pieplot}
 \alias{plot_pieplot}
-\title{plot pie}
+\title{Plot pie}
 \usage{
 plot_pieplot(
   data,
@@ -27,10 +27,10 @@ plot_pieplot(
 \item{bordercolor}{border color}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot pie
+This function creates a pie chart using ggplot2.
 }
 \examples{
 #summarizing iris dataset

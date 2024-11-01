@@ -9,15 +9,13 @@ classification(attribute, slevels)
 \arguments{
 \item{attribute}{attribute target to model building}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{possible values for the target classification}
 }
 \value{
-classification object
+returns a classification object
 }
 \description{
-Ancestor class for classification problems
+Ancestor class for classification problems using MLmetrics nnet
 }
 \examples{
 #See ?cla_dtree for a classification example using a decision tree

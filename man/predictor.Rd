@@ -7,7 +7,7 @@
 predictor()
 }
 \value{
-a predictor object
+returns a predictor object
 }
 \description{
 Ancestor class for regression and classification

@@ -18,7 +18,7 @@ ts_rf(preprocess = NA, input_size = NA, nodesize = 1, ntree = 10, mtry = NULL)
 \item{mtry}{number of attributes to build tree}
 }
 \value{
-a \code{ts_rf} object.
+returns a \code{ts_rf} object.
 }
 \description{
 Creates a time series prediction object that

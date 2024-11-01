@@ -4,7 +4,7 @@
 #' It wraps the dbscan library.
 #'@param eps distance value
 #'@param minPts minimum number of points
-#'@return A dbscan object.
+#'@return returns a dbscan object
 #'@examples
 #'# setup clustering
 #'model <- cluster_dbscan(minPts = 3)
@@ -31,11 +31,13 @@ cluster_dbscan <- function(minPts = 3, eps = NULL) {
 }
 
 #'@title fit dbscan model
-#'@description fit dbscan model
-#'@param obj object
-#'@param data dataset
+#'@description Fits a DBSCAN clustering model by setting the `eps` parameter.
+#'If `eps` is not provided, it is estimated based on the k-nearest neighbor distances.
+#'It wraps dbscan library
+#'@param obj an object containing the DBSCAN model configuration, including `minPts` and optionally `eps`
+#'@param data the dataset to use for fitting the model
 #'@param ... optional arguments
-#'@return fitted obj
+#'@return returns a fitted obj with the `eps` parameter set
 #'@import dbscan
 #'@export
 fit.cluster_dbscan <- function(obj, data, ...) {

@@ -4,7 +4,7 @@
 #'Besides, action method proxies to predict.
 #'
 #' An example of learner is a decision tree (cla_dtree)
-#'@return a predictor object
+#'@return returns a predictor object
 #'@examples
 #'#See ?cla_dtree for a classification example using a decision tree
 #'@export

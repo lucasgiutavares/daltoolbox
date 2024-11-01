@@ -10,10 +10,10 @@ adjust_data.frame(data)
 \item{data}{dataset}
 }
 \value{
-The date argument
+returns a data.frame
 }
 \description{
-dataset data is adjusted to a \code{data.frame}
+Converts a dataset to a \code{data.frame} if it is not already in that format
 }
 \examples{
 data(iris)

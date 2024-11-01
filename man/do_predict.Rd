@@ -2,17 +2,17 @@
 % Please edit documentation in R/ts_reg.R
 \name{do_predict}
 \alias{do_predict}
-\title{do predict for time series}
+\title{Predict Time Series Model}
 \usage{
 do_predict(obj, x)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{an object representing the fitted model or algorithm}
 
-\item{x}{input variable}
+\item{x}{a matrix or data.frame containing the input features for making predictions}
 }
 \value{
-predicted values
+returns the predicted values
 }
 \description{
 The actual time series model prediction.

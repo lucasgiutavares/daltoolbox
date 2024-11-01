@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_base.R
 \name{set_params.default}
 \alias{set_params.default}
-\title{Assign parameters}
+\title{Default Assign parameters}
 \usage{
 \method{set_params}{default}(obj, params)
 }
@@ -12,9 +12,8 @@
 \item{params}{parameters}
 }
 \value{
-obj
+returns the object unchanged
 }
 \description{
-This function receives the obj and params variables as parameters.
-It returns the obj as it is.
+Default method for \code{set_params} which returns the object unchanged
 }

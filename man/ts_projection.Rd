@@ -10,10 +10,11 @@ ts_projection(ts)
 \item{ts}{matrix or data.frame containing the time series.}
 }
 \value{
-a \code{ts_projection} object.
+returns a \code{ts_projection} object.
 }
 \description{
-Separates the \code{ts_data} into input and output.
+Separates a \code{ts_data} object into input and output components for time series analysis.
+This function is useful for preparing data for modeling, where the input and output variables are extracted from a time series dataset.
 }
 \examples{
 #setting up a ts_data

@@ -18,7 +18,7 @@ cla_mlp(attribute, slevels, size = NULL, decay = 0.1, maxit = 1000)
 \item{maxit}{maximum iterations}
 }
 \value{
-a classification object
+returns a classification object
 }
 \description{
 Creates a classification object that

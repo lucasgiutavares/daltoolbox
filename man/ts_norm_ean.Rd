@@ -12,10 +12,11 @@ ts_norm_ean(remove_outliers = TRUE, nw = 0)
 \item{nw}{windows size}
 }
 \value{
-a \code{ts_norm_ean} object.
+returns a \code{ts_norm_ean} object.
 }
 \description{
-It takes 2 parameters: remove_outliers and nw
+Creates a normalization object for time series data using an Exponential Moving Average (EMA) method.
+This normalization approach adapts to changes in the time series and optionally removes outliers.
 }
 \examples{
 # time series to normalize

@@ -6,8 +6,8 @@
 #'@param input_size input size for machine learning model
 #'@param kernel SVM kernel (linear, radial, polynomial, sigmoid)
 #'@param epsilon error threshold
-#'@param cost cost
-#'@return a `ts_svm` object.
+#'@param cost this parameter controls the trade-off between achieving a low error on the training data and minimizing the model complexity
+#'@return returns a `ts_svm` object.
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 10)

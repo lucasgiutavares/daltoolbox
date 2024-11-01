@@ -16,7 +16,7 @@ reg_rf(attribute, nodesize = 1, ntree = 10, mtry = NULL)
 \item{mtry}{number of attributes to build tree}
 }
 \value{
-obj
+returns an object of class \code{reg_rf}obj
 }
 \description{
 Creates a regression object that

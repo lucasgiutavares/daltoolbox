@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_lollipop}
 \alias{plot_lollipop}
-\title{plot lollipop}
+\title{Plot lollipop}
 \usage{
 plot_lollipop(
   data,
@@ -39,10 +39,10 @@ plot_lollipop(
 \item{max_value_gap}{maximum value gap}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot lollipop
+This function creates a lollipop chart using ggplot2.
 }
 \examples{
 #summarizing iris dataset

@@ -4,10 +4,10 @@
 #'@param preprocess normalization
 #'@param input_size input size for machine learning model
 #'@param epochs maximum number of epochs
-#'@return a `ts_conv1d` object.
+#'@return returns a `ts_conv1d` object.
 #'@examples
-#'#Use the same example of ts_mlp changing the constructor to:
-#'model <- ts_conv1d(ts_norm_gminmax(), input_size=4, epochs = 10000L)
+#'#See an example of using `ts_conv1d` at this
+#'#[link](https://github.com/cefet-rj-dal/daltoolbox/blob/main/timeseries/ts_conv1d.ipynb)
 #'@import reticulate
 #'@export
 ts_conv1d <- function(preprocess = NA, input_size = NA, epochs = 10000L) {
