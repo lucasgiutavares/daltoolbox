@@ -1,8 +1,9 @@
 #'@title DAL Tune
-#'@description Ancestor class for hyper parameter optimization
+#'@description Creates an ancestor class for hyperparameter optimization,
+#'allowing the tuning of a base model using cross-validation.
 #'@param base_model base model for tuning
 #'@param folds number of folds for cross-validation
-#'@return a `dal_tune` object.
+#'@return returns a `dal_tune` object
 #'@examples
 #'#See ?cla_tune for classification tuning
 #'#See ?reg_tune for regression tuning
@@ -17,10 +18,10 @@ dal_tune <- function(base_model, folds=10) {
 }
 
 #'@title Selection hyper parameters
-#'@description Selection hyper parameters from a k-fold cross-validation execution
-#'@param obj object
+#'@description Selects the optimal hyperparameters from a dataset resulting from k-fold cross-validation
+#'@param obj the object or model used for hyperparameter selection.
 #'@param hyperparameters data set with hyper parameters and quality measure from execution
-#'@return index of selected hyper parameter
+#'@return returns the index of selected hyper parameter
 #'@export
 select_hyper <- function(obj, hyperparameters) {
   UseMethod("select_hyper")

@@ -3,7 +3,7 @@
 #'Ancestral class for Machine Learning Implementation.
 #'@param preprocess normalization
 #'@param input_size input size for machine learning model
-#'@return A `ts_regsw` object
+#'@return returns a `ts_regsw` object
 #'@examples
 #'#See ?ts_elm for an example using Extreme Learning Machine
 #'@export

@@ -12,7 +12,7 @@ sMAPE.ts(actual, prediction)
 \item{prediction}{predicted observations}
 }
 \value{
-The sMAPE between the actual and prediction vectors
+returns the sMAPE between the actual and prediction vectors
 }
 \description{
 Compute the symmetric mean absolute percent error (sMAPE)

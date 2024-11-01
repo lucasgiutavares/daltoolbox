@@ -2,10 +2,10 @@
 # version 2.1
 
 #'@title Regression Tune
-#'@description Regression Tune
+#'@description Creates an object for tuning regression models
 #'@param base_model base model for tuning
 #'@param folds number of folds for cross-validation
-#'@return a `reg_tune` object.
+#'@return returns a `reg_tune` object.
 #'@examples
 #'# preparing dataset for random sampling
 #'data(Boston)

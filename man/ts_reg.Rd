@@ -7,7 +7,7 @@
 ts_reg()
 }
 \value{
-A \code{ts_reg} object
+returns \code{ts_reg} object
 }
 \description{
 Time Series Regression directly from time series

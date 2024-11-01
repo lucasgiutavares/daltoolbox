@@ -2,9 +2,9 @@
 % Please edit documentation in R/graphics.R
 \name{plot_boxplot}
 \alias{plot_boxplot}
-\title{plot boxplot}
+\title{Plot boxplot}
 \usage{
-plot_boxplot(data, label_x = "", label_y = "", colors = NULL, barwith = 0.25)
+plot_boxplot(data, label_x = "", label_y = "", colors = NULL, barwidth = 0.25)
 }
 \arguments{
 \item{data}{data.frame contain x, value, and variable}
@@ -15,13 +15,13 @@ plot_boxplot(data, label_x = "", label_y = "", colors = NULL, barwith = 0.25)
 
 \item{colors}{color vector}
 
-\item{barwith}{width of bar}
+\item{barwidth}{width of bar}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot boxplot
+this function displays a boxplot graph from a data frame containing x-axis categories and numeric values using ggplot2.
 }
 \examples{
 grf <- plot_boxplot(iris, colors="white")

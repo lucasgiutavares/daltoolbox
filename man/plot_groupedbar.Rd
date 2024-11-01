@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_groupedbar}
 \alias{plot_groupedbar}
-\title{plot grouped bar}
+\title{Plot grouped bar}
 \usage{
 plot_groupedbar(data, label_x = "", label_y = "", colors = NULL, alpha = 1)
 }
@@ -18,14 +18,18 @@ plot_groupedbar(data, label_x = "", label_y = "", colors = NULL, alpha = 1)
 \item{alpha}{level of transparency}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot grouped bar
+This function generates a grouped bar plot from a given data frame using ggplot2.
 }
 \examples{
+#summarizing iris dataset
 data <- iris |> dplyr::group_by(Species) |>
  dplyr::summarize(Sepal.Length=mean(Sepal.Length), Sepal.Width=mean(Sepal.Width))
+head(data)
+
+#ploting data
 grf <- plot_groupedbar(data, colors=c("blue", "red"))
 plot(grf)
 }

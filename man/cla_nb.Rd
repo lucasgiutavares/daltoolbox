@@ -9,10 +9,10 @@ cla_nb(attribute, slevels)
 \arguments{
 \item{attribute}{attribute target to model building.}
 
-\item{slevels}{Possible values for the target classification.}
+\item{slevels}{possible values for the target classification.}
 }
 \value{
-A classification object.
+returns a classification object.
 }
 \description{
 Classification using the Naive Bayes algorithm

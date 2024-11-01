@@ -9,12 +9,12 @@ cla_knn(attribute, slevels, k = 1)
 \arguments{
 \item{attribute}{attribute target to model building.}
 
-\item{slevels}{Possible values for the target classification.}
+\item{slevels}{possible values for the target classification.}
 
-\item{k}{A vector of integers indicating the number of neighbors to be considered.}
+\item{k}{a vector of integers indicating the number of neighbors to be considered.}
 }
 \value{
-A knn object.
+returns a knn object.
 }
 \description{
 Classifies using the K-Nearest Neighbor algorithm.

@@ -10,7 +10,7 @@ smoothing(n)
 \item{n}{number of bins}
 }
 \value{
-obj
+returns an object of class \code{smoothing}
 }
 \description{
 Smoothing is a statistical technique used to reduce

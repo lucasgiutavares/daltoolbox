@@ -12,7 +12,7 @@ transform(obj, ...)
 \item{...}{optional arguments.}
 }
 \value{
-transformed data.
+returns a transformed data.
 }
 \description{
 Defines a transformation method.

@@ -10,7 +10,7 @@ categ_mapping(attribute)
 \item{attribute}{attribute to be categorized.}
 }
 \value{
-A data frame with binary attributes, one for each possible category.
+returns a data frame with binary attributes, one for each possible category.
 }
 \description{
 Categorical mapping provides a way to map the levels of a categorical variable to new values.

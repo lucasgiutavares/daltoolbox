@@ -1,7 +1,8 @@
-#'@title min-max normalization
+#'@title Min-max normalization
 #'@description The minmax performs scales data between \[0,1\].
-#'minmax = (x-min(x))/(max(x)-min(x)).
-#'@return obj
+#'
+#'\eqn{minmax = (x-min(x))/(max(x)-min(x))}
+#'@return returns an object of class `minmax`
 #'@examples
 #'data(iris)
 #'head(iris)

@@ -1,6 +1,6 @@
 #'@title maximum curvature analysis
 #'@description Fitting a curvature model in a sequence of observations. It extracts the the maximum curvature computed.
-#'@return Returns an object of class fit_curvature_max, which inherits from the fit_curvature and dal_transform classes.
+#'@return returns an object of class fit_curvature_max, which inherits from the fit_curvature and dal_transform classes.
 #' The object contains a list with the following elements:
 #' \itemize{
 #' \item x: The position in which the maximum curvature is reached.

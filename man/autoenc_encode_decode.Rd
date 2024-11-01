@@ -2,7 +2,7 @@
 % Please edit documentation in R/trans_autoenc_encode_decode.R
 \name{autoenc_encode_decode}
 \alias{autoenc_encode_decode}
-\title{Autoencoder - Encode}
+\title{Autoencoder - Encode-decode}
 \usage{
 autoenc_encode_decode(
   input_size,
@@ -24,12 +24,13 @@ autoenc_encode_decode(
 \item{learning_rate}{learning rate}
 }
 \value{
-a \code{autoenc_encode_decode} object.
+returns a \code{autoenc_encode_decode} object.
 }
 \description{
-Creates an deep learning autoencoder to encode a sequence of observations.
-It wraps the pytorch library.
+Creates an deep learning autoencoder to encode-decode a sequence of observations.
+It wraps the pytorch and reticulate libraries.
 }
 \examples{
-#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
+#See an example of using `autoenc_encode_decode` at this
+#[link](https://github.com/cefet-rj-dal/daltoolbox/blob/main/transformation/enc_decode.ipynb)
 }

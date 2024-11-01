@@ -14,10 +14,10 @@ cla_tune(base_model, folds = 10, metric = "accuracy")
 \item{metric}{metric used to optimize}
 }
 \value{
-a \code{cla_tune} object.
+returns a \code{cla_tune} object
 }
 \description{
-Classification Tune
+This function performs a grid search or random search over specified hyperparameter values to optimize a base classification model
 }
 \examples{
 # preparing dataset for random sampling

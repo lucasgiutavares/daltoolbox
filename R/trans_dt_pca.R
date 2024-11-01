@@ -6,7 +6,7 @@
 #' variables called principal components.
 #'@param attribute target attribute to model building
 #'@param components number of components for PCA
-#'@return obj
+#'@return returns an object of class `dt_pca`
 #'@examples
 #'mypca <- dt_pca("Species")
 #'# Automatically fitting number of components

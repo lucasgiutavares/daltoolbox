@@ -3,7 +3,7 @@
 #' It also provides the basis for specialized evaluation of learning performance.
 #'
 #' An example of a learner is a decision tree (cla_dtree)
-#'@return a learner
+#'@return returns a learner
 #'@examples
 #'#See ?cla_dtree for a classification example using a decision tree
 #'@export
@@ -21,12 +21,12 @@ action.dal_learner <- function(obj, ...) {
   return(result)
 }
 
-#'@title evaluate
-#'@description evaluate learner performance.
+#'@title Evaluate
+#'@description Evaluate learner performance.
 #' The actual evaluate varies according to the type of learner (clustering, classification, regression, time series regression)
 #'@param obj object
 #'@param ... optional arguments
-#'@return evaluation
+#'@return returns the evaluation
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)

@@ -2,19 +2,19 @@
 % Please edit documentation in R/trans_sample.R
 \name{k_fold}
 \alias{k_fold}
-\title{k-fold sampling}
+\title{K-fold sampling}
 \usage{
 k_fold(obj, data, k)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{an object representing the sampling method}
 
-\item{data}{dataset}
+\item{data}{dataset to be partitioned}
 
 \item{k}{number of folds}
 }
 \value{
-k folds
+returns a list of \code{k} data frames
 }
 \description{
 k-fold partition of a dataset using a sampling method

@@ -10,7 +10,7 @@ reg_dtree(attribute)
 \item{attribute}{attribute target to model building.}
 }
 \value{
-A decision tree regression object
+returns a decision tree regression object
 }
 \description{
 Creates a regression object that

@@ -17,7 +17,7 @@ ts_elm(preprocess = NA, input_size = NA, nhid = NA, actfun = "purelin")
 'radbas', 'tribas', 'relu', 'purelin' (default).}
 }
 \value{
-a \code{ts_elm} object.
+returns a \code{ts_elm} object.
 }
 \description{
 Creates a time series prediction object that

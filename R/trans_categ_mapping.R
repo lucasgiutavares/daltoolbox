@@ -2,7 +2,7 @@
 #'@description Categorical mapping provides a way to map the levels of a categorical variable to new values.
 #' Each possible value is converted to a binary attribute.
 #'@param attribute attribute to be categorized.
-#'@return A data frame with binary attributes, one for each possible category.
+#'@return returns a data frame with binary attributes, one for each possible category.
 #'@examples
 #'cm <- categ_mapping("Species")
 #'iris_cm <- transform(cm, iris)

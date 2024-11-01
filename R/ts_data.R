@@ -6,7 +6,7 @@
 #'If sw equals to zero, it store a time series as a single matrix column.
 #'@param y output variable
 #'@param sw integer: sliding window size.
-#'@return a `ts_data` object.
+#'@return returns a `ts_data` object.
 #'@examples
 #'data(sin_data)
 #'head(sin_data)
@@ -51,13 +51,14 @@ ts_data <- function(y, sw=1) {
   return(y)
 }
 
-#'@title Extract a subset of a time series stored in an object
-#'@description Receives as parameters the variables x, i, j ...
-#'@param x input variable
+#'@title Subset Extraction for Time Series Data
+#'@description Extracts a subset of a time series object based on specified rows and columns.
+#'The function allows for flexible indexing and subsetting of time series data.
+#'@param x `ts_data` object
 #'@param i row i
 #'@param j column j
 #'@param ... optional arguments
-#'@return A new ts_data object
+#'@return returns a new ts_data object
 #'@examples
 #'data(sin_data)
 #'data10 <- ts_data(sin_data$y, 10)
@@ -93,12 +94,12 @@ ts_data <- function(y, sw=1) {
   return(y)
 }
 
-#'@title ts_head
+#'@title Extract the First Observations from a `ts_data` Object
 #'@description Returns the first n observations from a `ts_data`
-#'@param x `ts_data`
+#'@param x `ts_data` object
 #'@param n number of rows to return
 #'@param ... optional arguments
-#'@return The first n observations of a `ts_data`
+#'@return returns the first n observations of a `ts_data`
 #'@examples
 #'data(sin_data)
 #'data10 <- ts_data(sin_data$y, 10)

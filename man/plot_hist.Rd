@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_hist}
 \alias{plot_hist}
-\title{plot histogram}
+\title{Plot histogram}
 \usage{
 plot_hist(data, label_x = "", label_y = "", color = "white", alpha = 0.25)
 }
@@ -18,10 +18,10 @@ plot_hist(data, label_x = "", label_y = "", color = "white", alpha = 0.25)
 \item{alpha}{transparency level}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot histogram
+This function generates a histogram from a specified data frame using ggplot2.
 }
 \examples{
 grf <- plot_hist(iris |> dplyr::select(Sepal.Width), color=c("blue"))

@@ -10,7 +10,7 @@ smoothing_cluster(n)
 \item{n}{number of bins}
 }
 \value{
-obj
+returns an object of class \code{smoothing_cluster}
 }
 \description{
 Uses clustering method to perform data smoothing.

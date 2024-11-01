@@ -18,7 +18,7 @@ cla_rf(attribute, slevels, nodesize = 5, ntree = 10, mtry = NULL)
 \item{mtry}{number of attributes to build tree}
 }
 \value{
-obj
+returns a classification object
 }
 \description{
 Creates a classification object that

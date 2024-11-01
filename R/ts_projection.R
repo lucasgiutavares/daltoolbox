@@ -1,7 +1,8 @@
 #'@title Time Series Projection
-#'@description Separates the `ts_data` into input and output.
+#'@description Separates a `ts_data` object into input and output components for time series analysis.
+#' This function is useful for preparing data for modeling, where the input and output variables are extracted from a time series dataset.
 #'@param ts matrix or data.frame containing the time series.
-#'@return a `ts_projection` object.
+#'@return returns a `ts_projection` object.
 #'@examples
 #'#setting up a ts_data
 #'data(sin_data)

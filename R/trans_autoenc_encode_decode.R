@@ -1,14 +1,15 @@
-#'@title Autoencoder - Encode
-#'@description Creates an deep learning autoencoder to encode a sequence of observations.
-#' It wraps the pytorch library.
+#'@title Autoencoder - Encode-decode
+#'@description Creates an deep learning autoencoder to encode-decode a sequence of observations.
+#' It wraps the pytorch and reticulate libraries.
 #'@param input_size input size
 #'@param encoding_size encoding size
 #'@param batch_size size for batch learning
 #'@param num_epochs number of epochs for training
 #'@param learning_rate learning rate
-#'@return a `autoenc_encode_decode` object.
+#'@return returns a `autoenc_encode_decode` object.
 #'@examples
-#'#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
+#'#See an example of using `autoenc_encode_decode` at this
+#'#[link](https://github.com/cefet-rj-dal/daltoolbox/blob/main/transformation/enc_decode.ipynb)
 #'@import reticulate
 #'@export
 autoenc_encode_decode <- function(input_size, encoding_size, batch_size = 32, num_epochs = 1000, learning_rate = 0.001) {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_learner.R
 \name{evaluate}
 \alias{evaluate}
-\title{evaluate}
+\title{Evaluate}
 \usage{
 evaluate(obj, ...)
 }
@@ -12,10 +12,10 @@ evaluate(obj, ...)
 \item{...}{optional arguments}
 }
 \value{
-evaluation
+returns the evaluation
 }
 \description{
-evaluate learner performance.
+Evaluate learner performance.
 The actual evaluate varies according to the type of learner (clustering, classification, regression, time series regression)
 }
 \examples{

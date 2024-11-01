@@ -1,11 +1,11 @@
-#'@title plot bar graph
-#'@description plot bar graph
+#'@title Plot bar graph
+#'@description this function displays a bar graph from a data frame containing x-axis categories using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
 #'@param alpha level of transparency
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'#summarizing iris dataset
 #'data <- iris |> dplyr::group_by(Species) |>
@@ -36,31 +36,31 @@ plot_bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   return(grf)
 }
 
-#'@title plot boxplot
-#'@description plot boxplot
+#'@title Plot boxplot
+#'@description this function displays a boxplot graph from a data frame containing x-axis categories and numeric values using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@param barwith width of bar
-#'@return ggplot graphic
+#'@param barwidth width of bar
+#'@return returns a ggplot graphic
 #'@examples
 #'grf <- plot_boxplot(iris, colors="white")
 #'plot(grf)
 #'@import ggplot2
 #'@importFrom reshape melt
 #'@export
-plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwith=0.25) {
+plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwidth=0.25) {
   value <- 0
   variable <- 0
   cnames <- colnames(data)
   series <- reshape::melt(as.data.frame(data))
   grf <- ggplot(aes(y = value, x = variable), data = series)
   if (!is.null(colors)) {
-    grf <- grf + geom_boxplot(fill = colors, width=barwith)
+    grf <- grf + geom_boxplot(fill = colors, width=barwidth)
   }
   else {
-    grf <- grf + geom_boxplot(width=barwith)
+    grf <- grf + geom_boxplot(width=barwidth)
   }
   grf <- grf + labs(color=cnames)
   if (!is.null(colors)) {
@@ -73,14 +73,14 @@ plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwit
   return(grf)
 }
 
-#'@title plot boxplot per class
-#'@description plot boxplot per class
+#'@title Boxplot per class
+#'@description This function generates boxplots grouped by a specified class label from a data frame containing numeric values using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param class_label name of attribute for class label
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'grf <- plot_boxplot_class(iris |> dplyr::select(Sepal.Width, Species),
 #'  class = "Species", colors=c("red", "green", "blue"))
@@ -115,15 +115,16 @@ plot_boxplot_class <- function(data, class_label, label_x = "", label_y = "", co
 }
 
 
-#'@title plot density
-#'@description plot density
+#'@title Plot density
+#'@description This function generates a density plot from a data frame containing numeric values using ggplot2.
+#'If the data frame has multiple columns, densities can be grouped and plotted.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@param bin bin width
+#'@param bin bin width for density estimation
 #'@param alpha level of transparency
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'grf <- plot_density(iris |> dplyr::select(Sepal.Width), colors="blue")
 #'plot(grf)
@@ -168,16 +169,16 @@ plot_density <-  function(data, label_x = "", label_y = "", colors = NULL, bin =
   return(grf)
 }
 
-#'@title plot density per class
-#'@description plot density per class
+#'@title Plot density per class
+#'@description This function generates density plots using ggplot2 grouped by a specified class label from a data frame containing numeric values.
 #'@param data data.frame contain x, value, and variable
 #'@param class_label name of attribute for class label
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@param bin bin width
+#'@param bin bin width for density estimation
 #'@param alpha level of transparency
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'grf <- plot_density_class(iris |> dplyr::select(Sepal.Width, Species),
 #'  class = "Species", colors=c("red", "green", "blue"))
@@ -208,17 +209,21 @@ plot_density_class <-  function(data, class_label, label_x = "", label_y = "", c
   return(grf)
 }
 
-#'@title plot grouped bar
-#'@description plot grouped bar
+#'@title Plot grouped bar
+#'@description This function generates a grouped bar plot from a given data frame using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
 #'@param alpha level of transparency
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
+#'#summarizing iris dataset
 #'data <- iris |> dplyr::group_by(Species) |>
 #'  dplyr::summarize(Sepal.Length=mean(Sepal.Length), Sepal.Width=mean(Sepal.Width))
+#'head(data)
+#'
+#'#ploting data
 #'grf <- plot_groupedbar(data, colors=c("blue", "red"))
 #'plot(grf)
 #'@import ggplot2
@@ -247,14 +252,14 @@ plot_groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
   return(grf)
 }
 
-#'@title plot histogram
-#'@description plot histogram
+#'@title Plot histogram
+#'@description This function generates a histogram from a specified data frame using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param color color vector
 #'@param alpha transparency level
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'grf <- plot_hist(iris |> dplyr::select(Sepal.Width), color=c("blue"))
 #'plot(grf)
@@ -280,8 +285,8 @@ plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=
   return(grf)
 }
 
-#'@title plot lollipop
-#'@description plot lollipop
+#'@title Plot lollipop
+#'@description This function creates a lollipop chart using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
@@ -292,7 +297,7 @@ plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=
 #'@param alpha_ball transparency of ball
 #'@param min_value minimum value
 #'@param max_value_gap maximum value gap
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'#summarizing iris dataset
 #'data <- iris |> dplyr::group_by(Species) |>
@@ -329,15 +334,15 @@ plot_lollipop <- function(data, label_x = "", label_y = "", colors = NULL, color
   return(grf)
 }
 
-#'@title plot pie
-#'@description plot pie
+#'@title Plot pie
+#'@description This function creates a pie chart using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
 #'@param textcolor text color
 #'@param bordercolor border color
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'#summarizing iris dataset
 #'data <- iris |> dplyr::group_by(Species) |>
@@ -385,13 +390,13 @@ plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textco
   return(grf)
 }
 
-#'@title plot points
-#'@description plot points
+#'@title Plot points
+#'@description This function creates a scatter plot using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'x <- seq(0, 10, 0.25)
 #'data <- data.frame(x, sin=sin(x), cosine=cos(x)+5)
@@ -422,13 +427,13 @@ plot_points <- function(data, label_x = "", label_y = "", colors = NULL) {
   return(grf)
 }
 
-#'@title plot radar
-#'@description plot radar
+#'@title Plot radar
+#'@description This function creates a radar chart using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'data <- data.frame(name = "Petal.Length", value = mean(iris$Petal.Length))
 #'data <- rbind(data, data.frame(name = "Petal.Width", value = mean(iris$Petal.Width)))
@@ -453,13 +458,13 @@ plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
   return(grf)
 }
 
-#'@title scatter graph
-#'@description scatter graph
+#'@title Scatter graph
+#'@description This function creates a scatter plot using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@return ggplot graphic
+#'@return return a ggplot graphic
 #'@examples
 #'grf <- plot_scatter(iris |> dplyr::select(x = Sepal.Length,
 #'  value = Sepal.Width, variable = Species),
@@ -486,13 +491,13 @@ plot_scatter <- function(data, label_x = "", label_y = "", colors = NULL) {
   return(grf)
 }
 
-#'@title plot series
-#'@description plot series
+#'@title Plot series
+#'@description This function creates a time series plot using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@return plot
+#'@return returns a ggplot graphic
 #'@examples
 #'x <- seq(0, 10, 0.25)
 #'data <- data.frame(x, sin=sin(x))
@@ -523,17 +528,20 @@ plot_series <- function(data, label_x = "", label_y = "", colors = NULL) {
   return(grf)
 }
 
-#'@title plot stacked bar
-#'@description plot stacked bar
+#'@title Plot stacked bar
+#'@description this function creates a stacked bar chart using ggplot2.
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
 #'@param alpha level of transparency
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
+#'#summarizing iris dataset
 #'data <- iris |> dplyr::group_by(Species) |>
 #'  dplyr::summarize(Sepal.Length=mean(Sepal.Length), Sepal.Width=mean(Sepal.Width))
+#'
+#'#plotting data
 #'grf <- plot_stackedbar(data, colors=c("blue", "red"))
 #'plot(grf)
 #'@import ggplot2
@@ -562,14 +570,14 @@ plot_stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
   return(grf)
 }
 
-#'@title Plot a time series chart
-#'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
+#'@title Plot time series chart
+#'@description This function plots a time series chart with points and a line using ggplot2.
 #'@param x input variable
 #'@param y output variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param color color for time series
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'x <- seq(0, 10, 0.25)
 #'data <- data.frame(x, sin=sin(x))
@@ -592,8 +600,8 @@ plot_ts <- function(x = NULL, y, label_x = "", label_y = "", color="black")  {
   return(grf)
 }
 
-#'@title Plot a time series chart
-#'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
+#'@title Plot a time series chart with predictions
+#'@description This function plots a time series chart with three lines: the original series, the adjusted series, and the predicted series using ggplot2.
 #'@param x time index
 #'@param y time series
 #'@param yadj  adjustment of time series
@@ -603,7 +611,7 @@ plot_ts <- function(x = NULL, y, label_x = "", label_y = "", color="black")  {
 #'@param color color for the time series
 #'@param color_adjust color for the adjusted values
 #'@param color_prediction color for the predictions
-#'@return ggplot graphic
+#'@return returns a ggplot graphic
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 0)

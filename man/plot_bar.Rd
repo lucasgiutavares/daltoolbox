@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_bar}
 \alias{plot_bar}
-\title{plot bar graph}
+\title{Plot bar graph}
 \usage{
 plot_bar(data, label_x = "", label_y = "", colors = NULL, alpha = 1)
 }
@@ -18,10 +18,10 @@ plot_bar(data, label_x = "", label_y = "", colors = NULL, alpha = 1)
 \item{alpha}{level of transparency}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot bar graph
+this function displays a bar graph from a data frame containing x-axis categories using ggplot2.
 }
 \examples{
 #summarizing iris dataset

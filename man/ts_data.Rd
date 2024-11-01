@@ -12,7 +12,7 @@ ts_data(y, sw = 1)
 \item{sw}{integer: sliding window size.}
 }
 \value{
-a \code{ts_data} object.
+returns a \code{ts_data} object.
 }
 \description{
 Time series data structure used in DAL Toolbox.

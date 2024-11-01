@@ -2,19 +2,19 @@
 % Please edit documentation in R/ts_data.R
 \name{ts_head}
 \alias{ts_head}
-\title{ts_head}
+\title{Extract the First Observations from a \code{ts_data} Object}
 \usage{
 ts_head(x, n = 6L, ...)
 }
 \arguments{
-\item{x}{\code{ts_data}}
+\item{x}{\code{ts_data} object}
 
 \item{n}{number of rows to return}
 
 \item{...}{optional arguments}
 }
 \value{
-The first n observations of a \code{ts_data}
+returns the first n observations of a \code{ts_data}
 }
 \description{
 Returns the first n observations from a \code{ts_data}

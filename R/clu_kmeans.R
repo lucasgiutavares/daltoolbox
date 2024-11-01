@@ -2,8 +2,8 @@
 #'@description Creates a clusterer object that
 #' uses the k-means method
 #' It wraps the stats library.
-#'@param k The number of clusters to form.
-#'@return A k-means object.
+#'@param k the number of clusters to form.
+#'@return returns a k-means object.
 #'@examples
 #'# setup clustering
 #'model <- cluster_kmeans(k=3)

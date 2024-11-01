@@ -10,7 +10,7 @@ outliers(alpha = 1.5)
 \item{alpha}{boxplot outlier threshold (default 1.5, but can be 3.0 to remove extreme values)}
 }
 \value{
-An outlier object
+returns an outlier object
 }
 \description{
 The outliers class uses box-plot definition for outliers.

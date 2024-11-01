@@ -4,7 +4,7 @@
 #' The mean of each cluster is then calculated and used as the
 #' smoothed value for all observations within that cluster.
 #'@param n number of bins
-#'@return obj
+#'@return returns an object of class `smoothing_cluster`
 #'@examples
 #'data(iris)
 #'obj <- smoothing_cluster(n = 2)

@@ -5,10 +5,12 @@
 
 # sample_stratified
 # loadlibrary("caret") for stratified
-#'@title  sample_stratified
-#'@description The sample_stratified function in R is used to generate a stratified random sample from a given dataset. Stratified sampling is a statistical method that is used when the population is divided into non-overlapping subgroups or strata, and a sample is selected from each stratum to represent the entire population. In stratified sampling, the sample is selected in such a way that it is representative of the entire population and the variability within each stratum is minimized.
+#'@title  Stratified Random Sampling
+#'@description The sample_stratified function in R is used to generate a stratified random sample from a given dataset.
+#'Stratified sampling is a statistical method that is used when the population is divided into non-overlapping subgroups or strata, and a sample is selected from each stratum to represent the entire population.
+#'In stratified sampling, the sample is selected in such a way that it is representative of the entire population and the variability within each stratum is minimized.
 #'@param attribute attribute target to model building
-#'@return obj
+#'@return returns an object of class `sample_stratified`
 #'@examples
 #'#using stratified sampling
 #'sample <- sample_stratified("Species")

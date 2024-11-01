@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_adjust.R
 \name{adjust_factor}
 \alias{adjust_factor}
-\title{adjust factors}
+\title{Adjust factors}
 \usage{
 adjust_factor(value, ilevels, slevels)
 }
@@ -14,8 +14,8 @@ adjust_factor(value, ilevels, slevels)
 \item{slevels}{labels for categorical values}
 }
 \value{
-an adjusted factor
+returns an adjusted factor
 }
 \description{
-vector \code{value} is adjusted to a factor
+Converts a vector into a factor with specified levels and labels
 }
