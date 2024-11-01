@@ -14,13 +14,13 @@ ts_lstm(preprocess = NA, input_size = NA, epochs = 10000L)
 \item{epochs}{maximum number of epochs}
 }
 \value{
-a \code{ts_lstm} object.
+returns a \code{ts_lstm} object.
 }
 \description{
 Creates a time series prediction object that uses the LSTM.
 It wraps the pytorch library.
 }
 \examples{
-#Use the same example of ts_mlp changing the constructor to:
-model <- ts_lstm(ts_norm_gminmax(), input_size=4, epochs = 10000L)
+#See an example of using `ts_ts_lstmconv1d` at this
+#[link](https://github.com/cefet-rj-dal/daltoolbox/blob/main/timeseries/ts_lstm.ipynb)
 }

@@ -10,7 +10,7 @@ ts_norm_gminmax(remove_outliers = TRUE)
 \item{remove_outliers}{logical: if TRUE (default) outliers will be removed.}
 }
 \value{
-a \code{ts_norm_gminmax} object.
+returns a \code{ts_norm_gminmax} object.
 }
 \description{
 Rescales data, so the minimum value is mapped to 0 and the maximum value is mapped to 1.

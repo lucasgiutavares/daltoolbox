@@ -12,10 +12,10 @@ reg_tune(base_model, folds = 10)
 \item{folds}{number of folds for cross-validation}
 }
 \value{
-a \code{reg_tune} object.
+returns a \code{reg_tune} object.
 }
 \description{
-Regression Tune
+Creates an object for tuning regression models
 }
 \examples{
 # preparing dataset for random sampling

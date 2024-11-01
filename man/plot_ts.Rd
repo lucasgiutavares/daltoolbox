@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_ts}
 \alias{plot_ts}
-\title{Plot a time series chart}
+\title{Plot time series chart}
 \usage{
 plot_ts(x = NULL, y, label_x = "", label_y = "", color = "black")
 }
@@ -18,10 +18,10 @@ plot_ts(x = NULL, y, label_x = "", label_y = "", color = "black")
 \item{color}{color for time series}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
+This function plots a time series chart with points and a line using ggplot2.
 }
 \examples{
 x <- seq(0, 10, 0.25)

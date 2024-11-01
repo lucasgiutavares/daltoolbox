@@ -7,10 +7,10 @@
 cluster_pam(k = 1)
 }
 \arguments{
-\item{k}{The number of clusters to generate.}
+\item{k}{the number of clusters to generate.}
 }
 \value{
-A PAM object.
+returns PAM object.
 }
 \description{
 Creates a clusterer object that

@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_density_class}
 \alias{plot_density_class}
-\title{plot density per class}
+\title{Plot density per class}
 \usage{
 plot_density_class(
   data,
@@ -25,15 +25,15 @@ plot_density_class(
 
 \item{colors}{color vector}
 
-\item{bin}{bin width}
+\item{bin}{bin width for density estimation}
 
 \item{alpha}{level of transparency}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot density per class
+This function generates density plots using ggplot2 grouped by a specified class label from a data frame containing numeric values.
 }
 \examples{
 grf <- plot_density_class(iris |> dplyr::select(Sepal.Width, Species),

@@ -21,10 +21,10 @@ ts_svm(
 
 \item{epsilon}{error threshold}
 
-\item{cost}{cost}
+\item{cost}{this parameter controls the trade-off between achieving a low error on the training data and minimizing the model complexity}
 }
 \value{
-a \code{ts_svm} object.
+returns a \code{ts_svm} object.
 }
 \description{
 Creates a time series prediction object that

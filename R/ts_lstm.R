@@ -6,8 +6,8 @@
 #'@param epochs maximum number of epochs
 #'@return returns a `ts_lstm` object.
 #'@examples
-#'#See an example of using `ts_ts_lstmconv1d` at
-#'#[this link](https://nbviewer.org/github/cefet-rj-dal/daltoolbox/blob/main/timeseries/ts_lstm.ipynb)
+#'#See an example of using `ts_ts_lstmconv1d` at this
+#'#[link](https://github.com/cefet-rj-dal/daltoolbox/blob/main/timeseries/ts_lstm.ipynb)
 #'@import reticulate
 #'@export
 ts_lstm <- function(preprocess = NA, input_size = NA, epochs = 10000L) {

@@ -10,10 +10,10 @@ ts_norm_diff(remove_outliers = TRUE)
 \item{remove_outliers}{logical: if TRUE (default) outliers will be removed.}
 }
 \value{
-a \code{ts_norm_diff} object.
+returns a \code{ts_norm_diff} object.
 }
 \description{
-It receives as parameter the variable remove_outliters. This function calculates the difference between the values of a time series
+This function calculates the difference between the values of a time series.
 }
 \examples{
 # time series to normalize

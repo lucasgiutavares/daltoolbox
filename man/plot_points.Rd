@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_points}
 \alias{plot_points}
-\title{plot points}
+\title{Plot points}
 \usage{
 plot_points(data, label_x = "", label_y = "", colors = NULL)
 }
@@ -16,10 +16,10 @@ plot_points(data, label_x = "", label_y = "", colors = NULL)
 \item{colors}{color vector}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot points
+This function creates a scatter plot using ggplot2.
 }
 \examples{
 x <- seq(0, 10, 0.25)

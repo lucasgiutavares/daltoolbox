@@ -24,12 +24,13 @@ autoenc_encode(
 \item{learning_rate}{learning rate}
 }
 \value{
-a \code{autoenc_encode} object.
+returns a \code{autoenc_encode} object.
 }
 \description{
 Creates an deep learning autoencoder to encode a sequence of observations.
-It wraps the pytorch library.
+It wraps the pytorch and reticulate libraries.
 }
 \examples{
-#See example at https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples
+#See an example of using `autoenc_encode` at this
+#[link](https://github.com/cefet-rj-dal/daltoolbox/blob/main/transformation/encode.ipynb)
 }

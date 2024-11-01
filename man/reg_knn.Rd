@@ -12,7 +12,7 @@ reg_knn(attribute, k)
 \item{k}{number of k neighbors}
 }
 \value{
-A knn regression object
+returns a knn regression object
 }
 \description{
 Creates a regression object that

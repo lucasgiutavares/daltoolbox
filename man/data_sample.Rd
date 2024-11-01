@@ -7,7 +7,7 @@
 data_sample()
 }
 \value{
-obj
+returns an object of class \code{data_sample}
 }
 \description{
 The data_sample function in R is used to randomly

@@ -18,12 +18,12 @@ cla_svm(attribute, slevels, epsilon = 0.1, cost = 10, kernel = "radial")
 \item{kernel}{the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)}
 }
 \value{
-A SVM classification object
+returns a SVM classification object
 }
 \description{
 Creates a classification object that
 uses the Support Vector Machine (SVM) method for classification
-It wraps the e1071 library.
+It wraps the e1071 and svm library.
 }
 \examples{
 data(iris)

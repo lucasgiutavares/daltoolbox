@@ -7,7 +7,7 @@
 dal_base()
 }
 \value{
-A dal_base object
+returns a dal_base object
 }
 \description{
 The dal_base class is an abstract class for all dal descendants classes. It provides both fit() and action() functions

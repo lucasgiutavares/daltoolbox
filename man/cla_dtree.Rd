@@ -7,13 +7,12 @@
 cla_dtree(attribute, slevels)
 }
 \arguments{
-\item{attribute}{attribute target to model building.}
+\item{attribute}{attribute target to model building}
 
-\item{slevels}{The possible values for the target classification.}
+\item{slevels}{the possible values for the target classification}
 }
 \value{
-A classification object that uses the
-Decision Tree algorithm for classification.
+returns a classification object
 }
 \description{
 Creates a classification object that

@@ -12,7 +12,7 @@ R2.ts(actual, prediction)
 \item{prediction}{predicted observations}
 }
 \value{
-A number, which is the calculated R2
+returns a number, which is the calculated R2
 }
 \description{
 Compute the R-squared (R2) between actual values and forecasts of a time series

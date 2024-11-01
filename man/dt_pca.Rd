@@ -12,7 +12,7 @@ dt_pca(attribute = NULL, components = NULL)
 \item{components}{number of components for PCA}
 }
 \value{
-obj
+returns an object of class \code{dt_pca}
 }
 \description{
 PCA (Principal Component Analysis) is an unsupervised

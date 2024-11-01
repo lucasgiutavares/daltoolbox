@@ -12,7 +12,7 @@ ts_norm_an(remove_outliers = TRUE, nw = 0)
 \item{nw}{integer: window size.}
 }
 \value{
-a \code{ts_norm_an} object.
+returns a \code{ts_norm_an} object.
 }
 \description{
 Transform data to a common scale while taking into account the

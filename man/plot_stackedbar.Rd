@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_stackedbar}
 \alias{plot_stackedbar}
-\title{plot stacked bar}
+\title{Plot stacked bar}
 \usage{
 plot_stackedbar(data, label_x = "", label_y = "", colors = NULL, alpha = 1)
 }
@@ -18,14 +18,17 @@ plot_stackedbar(data, label_x = "", label_y = "", colors = NULL, alpha = 1)
 \item{alpha}{level of transparency}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot stacked bar
+this function creates a stacked bar chart using ggplot2.
 }
 \examples{
+#summarizing iris dataset
 data <- iris |> dplyr::group_by(Species) |>
  dplyr::summarize(Sepal.Length=mean(Sepal.Length), Sepal.Width=mean(Sepal.Width))
+
+#plotting data
 grf <- plot_stackedbar(data, colors=c("blue", "red"))
 plot(grf)
 }

@@ -14,10 +14,12 @@ ts_tune(input_size, base_model, folds = 10)
 \item{folds}{number of folds for cross-validation}
 }
 \value{
-a \code{ts_tune} object.
+returns a \code{ts_tune} object
 }
 \description{
-Time Series Tune
+Creates a \code{ts_tune} object for tuning hyperparameters of a time series model.
+This function sets up a tuning process for the specified base model by exploring different
+configurations of hyperparameters using cross-validation.
 }
 \examples{
 data(sin_data)

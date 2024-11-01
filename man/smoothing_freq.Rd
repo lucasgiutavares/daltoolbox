@@ -10,7 +10,7 @@ smoothing_freq(n)
 \item{n}{number of bins}
 }
 \value{
-obj
+returns an object of class \code{smoothing_freq}
 }
 \description{
 The 'smoothing_freq' function is used to smooth a given time series data by aggregating observations within a fixed frequency.

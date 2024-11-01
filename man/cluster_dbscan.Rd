@@ -12,7 +12,7 @@ cluster_dbscan(minPts = 3, eps = NULL)
 \item{eps}{distance value}
 }
 \value{
-A dbscan object.
+returns a dbscan object
 }
 \description{
 Creates a clusterer object that

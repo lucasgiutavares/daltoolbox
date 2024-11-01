@@ -16,7 +16,7 @@ reg_mlp(attribute, size = NULL, decay = 0.05, maxit = 1000)
 \item{maxit}{number of maximum iterations for training}
 }
 \value{
-obj
+returns a object of class \code{reg_mlp}
 }
 \description{
 Creates a regression object that

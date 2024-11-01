@@ -7,15 +7,15 @@
 cluster(obj, ...)
 }
 \arguments{
-\item{obj}{a \code{clusterer} object.}
+\item{obj}{a \code{clusterer} object}
 
-\item{...}{optional arguments.}
+\item{...}{optional arguments}
 }
 \value{
-clustered data.
+clustered data
 }
 \description{
-Defines a cluster method.
+Defines a cluster method
 }
 \examples{
 #See ?cluster_kmeans for an example of transformation

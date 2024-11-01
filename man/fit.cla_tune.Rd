@@ -7,17 +7,17 @@
 \method{fit}{cla_tune}(obj, data, ranges, ...)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{an object containing the model and tuning configuration}
 
-\item{data}{dataset}
+\item{data}{the dataset used for training and evaluation}
 
-\item{ranges}{hyperparameters ranges}
+\item{ranges}{a list of hyperparameter ranges to explore}
 
 \item{...}{optional arguments}
 }
 \value{
-fitted obj
+a fitted obj
 }
 \description{
-tune hyperparameters of ml model for classification
+Tunes the hyperparameters of a machine learning model for classification
 }

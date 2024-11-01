@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_boxplot_class}
 \alias{plot_boxplot_class}
-\title{plot boxplot per class}
+\title{Boxplot per class}
 \usage{
 plot_boxplot_class(
   data,
@@ -24,10 +24,10 @@ plot_boxplot_class(
 \item{colors}{color vector}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot boxplot per class
+This function generates boxplots grouped by a specified class label from a data frame containing numeric values using ggplot2.
 }
 \examples{
 grf <- plot_boxplot_class(iris |> dplyr::select(Sepal.Width, Species),

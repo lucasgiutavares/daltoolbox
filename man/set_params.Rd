@@ -12,11 +12,10 @@ set_params(obj, params)
 \item{params}{parameters to set obj}
 }
 \value{
-obj with parameters set
+returns an object with parameters set
 }
 \description{
 set_params function assigns all parameters to the attributes presented in the object.
-It returns the object with the parameters set.
 }
 \examples{
 obj <- set_params(dal_base(), list(x = 0))

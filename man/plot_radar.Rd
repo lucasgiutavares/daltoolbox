@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_radar}
 \alias{plot_radar}
-\title{plot radar}
+\title{Plot radar}
 \usage{
 plot_radar(data, label_x = "", label_y = "", colors = NULL)
 }
@@ -16,10 +16,10 @@ plot_radar(data, label_x = "", label_y = "", colors = NULL)
 \item{colors}{color vector}
 }
 \value{
-ggplot graphic
+returns a ggplot graphic
 }
 \description{
-plot radar
+This function creates a radar chart using ggplot2.
 }
 \examples{
 data <- data.frame(name = "Petal.Length", value = mean(iris$Petal.Length))

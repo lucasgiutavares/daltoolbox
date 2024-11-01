@@ -7,7 +7,7 @@
 dal_learner()
 }
 \value{
-a learner
+returns a learner
 }
 \description{
 A ancestor class for clustering, classification, regression, and time series regression.

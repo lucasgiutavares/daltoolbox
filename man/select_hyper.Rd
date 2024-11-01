@@ -7,13 +7,13 @@
 select_hyper(obj, hyperparameters)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{the object or model used for hyperparameter selection.}
 
 \item{hyperparameters}{data set with hyper parameters and quality measure from execution}
 }
 \value{
-index of selected hyper parameter
+returns the index of selected hyper parameter
 }
 \description{
-Selection hyper parameters from a k-fold cross-validation execution
+Selects the optimal hyperparameters from a dataset resulting from k-fold cross-validation
 }

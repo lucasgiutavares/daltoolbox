@@ -6,8 +6,8 @@
 #'@param epochs maximum number of epochs
 #'@return returns a `ts_conv1d` object.
 #'@examples
-#'#See an example of using `ts_conv1d` at
-#'#[this link](https://nbviewer.org/github/cefet-rj-dal/daltoolbox/blob/main/timeseries/ts_conv1d.ipynb)
+#'#See an example of using `ts_conv1d` at this
+#'#[link](https://github.com/cefet-rj-dal/daltoolbox/blob/main/timeseries/ts_conv1d.ipynb)
 #'@import reticulate
 #'@export
 ts_conv1d <- function(preprocess = NA, input_size = NA, epochs = 10000L) {

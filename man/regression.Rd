@@ -10,10 +10,11 @@ regression(attribute)
 \item{attribute}{attribute target to model building}
 }
 \value{
-regression object
+returns a regression object
 }
 \description{
-Ancestor class for regression problems
+Ancestor class for regression problems.
+This ancestor class is used to define and manage the target attribute for regression tasks.
 }
 \examples{
 #See ?reg_dtree for a regression example using a decision tree

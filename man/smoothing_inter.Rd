@@ -10,7 +10,7 @@ smoothing_inter(n)
 \item{n}{number of bins}
 }
 \value{
-obj
+returns an object of class \code{smoothing_inter}
 }
 \description{
 The "smoothing by interval" function is used to apply a smoothing technique to a vector or time series data using a moving window approach.
